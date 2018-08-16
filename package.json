@@ -1,0 +1,38 @@
+{
+  "name": "whats_app_status_video_saver",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "install": "^0.12.1",
+    "native-base": "^2.7.2",
+    "npm": "^6.3.0",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-app-intro-slider": "^1.0.1",
+    "react-native-grid-component": "^1.1.0",
+    "react-native-photo-grid": "0.0.2",
+    "react-native-share": "^1.1.1",
+    "react-native-thumbnail": "^1.1.0",
+    "react-native-video": "^3.1.0",
+    "react-native-video-player": "^0.9.1",
+    "react-navigation": "^2.11.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "rn-fetch-blob": "^0.10.12"
+  },
+  "devDependencies": {
+    "babel-jest": "23.4.2",
+    "babel-preset-react-native": "5.0.2",
+    "jest": "23.4.2",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
