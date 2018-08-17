@@ -14,6 +14,7 @@
     "react-native": "0.56.0",
     "react-native-app-intro-slider": "^1.0.1",
     "react-native-grid-component": "^1.1.0",
+    "react-native-parallax-swiper": "^1.1.7",
     "react-native-photo-grid": "0.0.2",
     "react-native-share": "^1.1.1",
     "react-native-thumbnail": "^1.1.0",

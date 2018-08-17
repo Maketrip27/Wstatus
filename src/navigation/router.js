@@ -5,6 +5,7 @@ import Splash from '../screens/Splash/'
 import AppIntro from '../screens/AppIntro/'
 import ImageList from '../screens/ImageList/'
 import VideoList from '../screens/VideoList/'
+import Priview from '../screens/Priview';
 
 const Tabs = createBottomTabNavigator({
     Images: {
@@ -38,22 +39,21 @@ const Tabs = createBottomTabNavigator({
 const NavigationStack = createStackNavigator({
   Splash: {screen: Splash},
   AppIntro: {screen: AppIntro},
-  Home: {
-        screen: Tabs,
+  Home: {screen: Tabs},
+  Priview: {screen: Priview}
+  },
+  {
+    initialRouteName: 'Splash',
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+      gesturesEnabled: false,
+      headerLeft: null,
+      gesturesDirection: 'inverted',
+    },
+    cardStyle: {
+      backgroundColor: "#ffffff"
     }
-  },
-{
-  initialRouteName: 'Splash',
-  headerMode: 'none',
-  navigationOptions: {
-    headerVisible: false,
-    gesturesEnabled: false,
-    headerLeft: null,
-    gesturesDirection: 'inverted',
-  },
-  cardStyle: {
-    backgroundColor: "#ffffff"
-  }
 });
 
 export default NavigationStack;

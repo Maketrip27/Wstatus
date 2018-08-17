@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View,
+  PermissionsAndroid
+} from 'react-native';
 import {Button} from 'native-base';
 import { NavigationActions } from "react-navigation";
+
+import {getThumbnailfiles} from "../../utils/helper"
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,16 +24,35 @@ export default class SplashComponent extends Component {
     super();
   }
   componentWillMount(){
+    console.log("dddddd",getThumbnailfiles())
     console.log(this.props)
-    this.props.fetchWhatsAppFiles()
+    this.requestCameraPermission()
+  }
+
+  async  requestCameraPermission() {
+    try {
+      PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE]
+      ).then((result) => {
+        console.log('result', result);
+        if (Object.values(result).includes("denied")){
+          this.requestCameraPermission()
+        }else{
+          this.props.fetchWhatsAppFiles()
+        }
+      })
+      // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      //   this.props.fetchWhatsAppFiles()
+      //   console.log("You can use the camera")
+      // } else {
+      //   console.log("Camera permission denied")
+      // }
+    } catch (err) {
+      console.warn(err)
+    }
   }
   _navigate(name) {
-    // this.props.navigator.push({
-    //   name: name,
-    //   passProps: {
-    //     msg: msg_obj
-    //   }
-    // })
     const navigate = NavigationActions.navigate({
       routeName: name,
       params: {}

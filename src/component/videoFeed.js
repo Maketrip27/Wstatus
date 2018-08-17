@@ -9,11 +9,10 @@ import {
 } from 'react-native';
 import { Container, Content, Item, Input, Card, CardItem, Text, Button, Thumbnail,Body,Left,Right,Icon,Spinner,List,Header,Title } from 'native-base';
 import RNFetchBlob from 'rn-fetch-blob'
-import { getWhatsappStatusDirectory,downloadFiles } from '../utils/helper.js';
+import { getWhatsappStatusDirectory,downloadFiles, shareFile,getFilePath } from '../utils/helper.js';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
 import RNThumbnail from 'react-native-thumbnail';
-import Share from 'react-native-share';
 
 const {height, width} = Dimensions.get('window');
 
@@ -34,19 +33,7 @@ export class VideoFeed extends Component {
     })
     console.log("hh",this.thumbnail,this.state.thumbnail)
   }
-  sendFile(shareOptions){
-    Share.open(shareOptions).then((response)=>{
-      console.log(response)
-    }).catch((error)=>{
-      console.log("err",error)
-    })
-  }
   render() {
-    let dir =  getWhatsappStatusDirectory() + '/'  + this.props.video_url;
-    let shareOptions = {
-      title: "Share",
-      url: "file://"+dir,
-    };
     return (
             <List style={styles.gird}>
               <CardItem cardBody>
@@ -54,20 +41,20 @@ export class VideoFeed extends Component {
                  <VideoPlayer
                     endWithThumbnail
                     thumbnail={{uri: this.thumbnail}}
-                    video={{ uri: `file://${dir}` }}
+                    video={{ uri: getFilePath(this.props.video_url) }}
                     customStyles={{flex: 1,width: width/2}}
                     duration={undefined}
                     ref={r => this.player = r}
                   />
-                  <CardItem style={{ width: width/2,backgroundColor: 'transparent', height: 40, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                  <CardItem style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left>
-                      <Button transparent onPress={ () =>  this.sendFile(shareOptions)}>
-                        <Icon active name="md-share" style = {{color: 'white', fontSize: 30}}/>
+                      <Button transparent onPress={ () =>  shareFile(this.props.video_url)}>
+                        <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 20}}/>
                       </Button>
                     </Left>
                     <Right>
-                     <Button transparent onPress={ () =>  downloadFiles(dir,this.props.video_url)}>
-                        <Icon active name="md-download" style = {{color: 'white', fontSize: 30}}/>
+                     <Button transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
+                        <Icon active name="md-download" style = {{color: 'white', fontSize: 20}}/>
                       </Button>
                     </Right>
                   </CardItem>
@@ -104,7 +91,7 @@ const styles = StyleSheet.create({
   },
   gird:{
     flex: 1,
-    margin: 5,
+    margin: 3,
     minWidth: 170,
     maxWidth: 170,
     maxHeight:170,

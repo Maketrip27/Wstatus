@@ -9,10 +9,10 @@ const initialState = {
 export function ImageReducer(state = initialState, action) {
   switch (action.type) {
     case imageActions.UPDATE_IMAGE_LIST: {
-      return _.assign( {}, state, { images: action.data });
+      return _.assign( {}, state, { images: action.data.reverse() });
     }
     case imageActions.UPDATE_VIDEO_LIST: {
-      return _.assign( {}, state, { videos: action.data });
+      return _.assign( {}, state, { videos: action.data.reverse() });
     }
     default:
       return state
