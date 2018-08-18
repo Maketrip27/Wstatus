@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text,FlatList,AppState,Dimensions,TouchableOpacity} from 'react-native';
+import {View,StyleSheet, Text,FlatList,AppState,Dimensions,TouchableOpacity} from 'react-native';
 import {Feed} from '../../component/feed.js';
 import { Container, Content,  Body,Left,Right,Header,Title,Button,Icon } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
-import { containerStyle } from '../../utils/helper.js';
+import { containerStyle,getRandomInt } from '../../utils/helper.js';
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from 'react-native-admob'
+
 const {height, width} = Dimensions.get('window');
 
 export default class ImageListComponent extends Component {
@@ -56,13 +63,37 @@ export default class ImageListComponent extends Component {
         <Content 
           onScroll={this._onScroll}
           contentContainerStyle = {containerStyle(this.props.images)}>
+          <AdMobBanner
+            adSize="fullBanner"
+            adUnitID="ca-app-pub-3940256099942544/6300978111"
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.error(error)}
+          />
         {this.props.images.length > 0 ?
           <FlatList
               contentContainerStyle={styles.list}
               data={this.props.images}
               keyExtractor={(item, index) => item.id}
-              renderItem={(item) => {
-                return  (<Feed image_url={item.item}/>)
+              renderItem={({item,index}) => {
+                console.log(index,"----------------",(index+1)%2)
+                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,4) === 2){
+                  return(
+                    <View>
+                    <View/>
+                    <View style={{width:170, flex: 1}}>
+                    <AdMobBanner
+                      adSize="fullBanner"
+                      adUnitID="ca-app-pub-3940256099942544/6300978111"
+                      testDevices={[AdMobBanner.simulatorId]}
+                      onAdFailedToLoad={error => console.error(error)}
+                    />
+                      </View>
+                      <Feed image_url={item}/>
+                    </View>
+                    )
+                }else{
+                return  (<Feed image_url={item}/>)
+              }
           }}/> :
           <NoData message="No status available."/>}
        </Content>
