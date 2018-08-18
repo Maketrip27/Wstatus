@@ -2,22 +2,17 @@ import React, { Component,Video } from 'react';
 import {
   StyleSheet,
   ImageBackground,
-  ToastAndroid,
   ScrollView,
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
-import { Container, Content, Item, Input, Card, CardItem, Text, Button, Thumbnail,Body,Left,Right,Icon,Spinner,List,Header,Title } from 'native-base';
+import { CardItem,Button, Left,Right,Icon,List} from 'native-base';
 
-import RNFetchBlob from 'rn-fetch-blob'
 import {downloadFiles, shareFile,getFilePath } from '../utils/helper.js';
-import Share from 'react-native-share';
-
 const {height, width} = Dimensions.get('window');
 export class Feed extends Component {
   render() {
     return (
-            <TouchableWithoutFeedback onPress={ () => this.props.priview("Priview")}>
             <List style={styles.gird}>
               <CardItem cardBody>
                 <ScrollView horizontal>
@@ -38,7 +33,6 @@ export class Feed extends Component {
                 </ScrollView>
               </CardItem>
             </List>
-            </TouchableWithoutFeedback>
     );
   }
 }

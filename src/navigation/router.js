@@ -6,6 +6,7 @@ import AppIntro from '../screens/AppIntro/'
 import ImageList from '../screens/ImageList/'
 import VideoList from '../screens/VideoList/'
 import Priview from '../screens/Priview';
+import CONFIG from '../config/config';
 
 const Tabs = createBottomTabNavigator({
     Images: {
@@ -27,8 +28,8 @@ const Tabs = createBottomTabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: '#ffffff',
-    activeBackgroundColor: '#006055',
-    inactiveBackgroundColor: '#006055',
+    activeBackgroundColor: CONFIG.themeColor,
+    inactiveBackgroundColor: CONFIG.themeColor,
     inactiveTintColor: '#d7e5e3',
     showIcon:true,
       labelStyle: {fontSize: 14}

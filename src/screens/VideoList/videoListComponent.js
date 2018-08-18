@@ -23,7 +23,7 @@ export default class App extends Component {
               renderItem={(item) => {
                 return  (<VideoFeed video_url={item.item}/>)
           }}/>:
-          <NoData message="No Status Available"/>}
+          <NoData message="No video status available."/>}
        </Content>
       </Container>
     );

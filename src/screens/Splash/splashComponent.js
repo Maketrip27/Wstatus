@@ -4,27 +4,21 @@ import {
   StyleSheet, 
   Text, 
   View,
-  PermissionsAndroid
+  PermissionsAndroid,
+  Image
 } from 'react-native';
 import {Button} from 'native-base';
 import { NavigationActions } from "react-navigation";
 
 import {getThumbnailfiles} from "../../utils/helper"
+import LottieView from 'lottie-react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Splash,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
 export default class SplashComponent extends Component {
   constructor() {
     super();
   }
   componentWillMount(){
-    console.log("dddddd",getThumbnailfiles())
+    getThumbnailfiles()
     console.log(this.props)
     this.requestCameraPermission()
   }
@@ -40,14 +34,11 @@ export default class SplashComponent extends Component {
           this.requestCameraPermission()
         }else{
           this.props.fetchWhatsAppFiles()
+          setTimeout(()=>{
+            this._navigate('Home')
+          },3000)
         }
       })
-      // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      //   this.props.fetchWhatsAppFiles()
-      //   console.log("You can use the camera")
-      // } else {
-      //   console.log("Camera permission denied")
-      // }
     } catch (err) {
       console.warn(err)
     }
@@ -62,15 +53,13 @@ export default class SplashComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcomeghgj to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-            <Button 
-              style={{justifyContent:'center',borderRadius:10, marginTop: 25, marginBottom: 20, marginLeft:15,width:285,borderWidth:1 }} 
-              onPress={ () => this._navigate('AppIntro') }
-            >
-             <Text>SIGN IN</Text>
-            </Button>        
+        <Image source={require("../../images/ic_launcher.png")} style={{width: 100,height:100,bottom:40}}/>
+          <LottieView
+            source={require('../../animation/loading_dots.json')}
+            style={{top:80}}
+            autoPlay
+            loop
+          />
       </View>
     );
   }
@@ -79,9 +68,10 @@ export default class SplashComponent extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#01776a',
   },
   welcome: {
     fontSize: 20,

@@ -2,18 +2,25 @@ import React, {Component} from 'react';
 import {Icon,Text} from 'native-base';
 
 import {View} from 'react-native';
+import LottieView from 'lottie-react-native';
 
 export default class NoData extends Component {
   render() {
     return (
-      <View style={{marginBottom: 40}}>
-        <Icon 
-          name="md-paper" 
-          style={styles.feedIcon}
-        />
-        <View style={{marginBottom: 20}}>
+      <View>
+ 
+        <View>
+        <LottieView
+            source={require('../animation/crying.json')}
+            autoPlay
+            style={{left:10,width:200}}
+            loop
+          />
           <Text style={styles.boldTextStyle}> 
             {this.props.message}
+          </Text>
+          <Text style={styles.boldTextStyle}> 
+            Please view status on What's App.
           </Text>
         </View>
       </View>
@@ -23,7 +30,6 @@ export default class NoData extends Component {
 
 let styles = {
   boldTextStyle: {
-    marginBottom: 5, 
     fontSize: 16, 
     alignSelf: 'center',
     color: '#3f3f3f'

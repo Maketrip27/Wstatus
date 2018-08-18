@@ -73,6 +73,7 @@ export default class ImageListComponent extends Component {
       </ParallaxSwiper>
       <TouchableOpacity
         onPress={() => {
+          StatusBar.setHidden(false, 'none');
           this.props.navigation.goBack();
         }}
         style={[styles.largeButtonContainer, { left: 12 }]}

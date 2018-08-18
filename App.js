@@ -7,17 +7,19 @@
  */
 
 import React, {Component} from 'react';
-import {Text} from 'react-native';
+import {Text, StatusBar,View} from 'react-native';
 import { Provider } from 'react-redux';
 import NavigationStack from "./src/navigation/router";
-
 import configureStore from './src/store/store'
+import CONFIG from './src/config/config';
+
 const { store } = configureStore();
 
-type Props = {};
 export default class App extends Component{
   constructor() {
     super();
+    StatusBar.setBackgroundColor(CONFIG.themeColor, true);
+    StatusBar.setHidden(false, 'none');
   }
   
   render() {
