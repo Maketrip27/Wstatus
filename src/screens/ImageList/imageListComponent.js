@@ -4,13 +4,11 @@ import {Feed} from '../../component/feed.js';
 import { Container, Content,  Body,Left,Right,Header,Title,Button,Icon } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
-import { containerStyle,getRandomInt } from '../../utils/helper.js';
+import { containerStyle,getRandomInt,getRandomAdUnit } from '../../utils/helper.js';
 import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
+  AdMobBanner
 } from 'react-native-admob'
+import Ad from '../../config/ad';
 
 const {height, width} = Dimensions.get('window');
 
@@ -33,7 +31,9 @@ export default class ImageListComponent extends Component {
   }
   _handleAppStateChange = (nextAppState) => {
     console.log('App has come to the foreground!',nextAppState)
-    this.props.fetchWhatsAppFiles()
+    if(nextAppState !== "background"){
+      this.props.fetchWhatsAppFiles()
+    }
   }
   _navigate = (name) => {
     const navigate = NavigationActions.navigate({
@@ -65,9 +65,9 @@ export default class ImageListComponent extends Component {
           contentContainerStyle = {containerStyle(this.props.images)}>
           <AdMobBanner
             adSize="fullBanner"
-            adUnitID="ca-app-pub-3940256099942544/6300978111"
+            adUnitID={Ad.topAd}
             testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.error(error)}
+            onAdFailedToLoad={error => console.log(error)}
           />
         {this.props.images.length > 0 ?
           <FlatList
@@ -76,16 +76,16 @@ export default class ImageListComponent extends Component {
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
                 console.log(index,"----------------",(index+1)%2)
-                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,4) === 2){
+                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
                   return(
                     <View>
                     <View/>
                     <View style={{width:170, flex: 1}}>
                     <AdMobBanner
                       adSize="fullBanner"
-                      adUnitID="ca-app-pub-3940256099942544/6300978111"
+                      adUnitID={getRandomAdUnit(Ad.bannerAd)}
                       testDevices={[AdMobBanner.simulatorId]}
-                      onAdFailedToLoad={error => console.error(error)}
+                      onAdFailedToLoad={error => console.log(error)}
                     />
                       </View>
                       <Feed image_url={item}/>
@@ -96,6 +96,12 @@ export default class ImageListComponent extends Component {
               }
           }}/> :
           <NoData message="No status available."/>}
+          <AdMobBanner
+            adSize="fullBanner"
+            adUnitID={Ad.imageBottomAd}
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.log(error)}
+          />
        </Content>
       </Container>
     );

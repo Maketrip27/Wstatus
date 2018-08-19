@@ -15,11 +15,12 @@ import {
   ParallaxSwiper,
   ParallaxSwiperPage,
 } from 'react-native-parallax-swiper';
-// import LinearGradient from 'react-native-linear-gradient';
-
-import { downloadFiles, shareFile,getFilePath } from '../../utils/helper.js';
-
+import { downloadFiles, shareFile,getFilePath,getRandomAdUnit,getRandomInt } from '../../utils/helper.js';
 import {Icon} from 'native-base';
+import {
+  AdMobBanner
+} from 'react-native-admob'
+import Ad from '../../config/ad';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 const myAnimatedValue = new Animated.Value(0);
@@ -30,7 +31,23 @@ export default class ImageListComponent extends Component {
     console.log(this.props)
     StatusBar.setHidden(true, 'none');
   }
-  
+  getAd = (index) => {
+    console.log("preview",index)
+    if((index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+      console.log("preview",index)
+      return(
+        <AdMobBanner
+          adSize="fullBanner"
+          adUnitID={getRandomAdUnit(Ad.previewAd)}
+          testDevices={[AdMobBanner.simulatorId]}
+          onAdFailedToLoad={error => console.log(error)}
+        />
+      )
+    }
+    else{
+      return null
+    }
+  }
   render(){
     return(
       <View>
@@ -40,7 +57,7 @@ export default class ImageListComponent extends Component {
         dividerColor="black"
         animatedValue={myAnimatedValue}
       >
-        {this.props.images.map(image =>
+        {this.props.images.map((image,index) =>
           (<ParallaxSwiperPage
             BackgroundComponent={
               <ImageBackground
@@ -49,23 +66,23 @@ export default class ImageListComponent extends Component {
                   uri: getFilePath(image),
                 }}
                 resizeMode="contain"
-
-              />
+              >{ this.getAd(index)}
+              </ImageBackground>
             }
             ForegroundComponent={
               <View style={styles.innerContainer}>
-              <TouchableOpacity 
-        onPress={() => {shareFile(image)}}
-        style={[styles.largeButtonContainer, { right: 64 }]}
-      >
-        <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => {downloadFiles(image)}}
-        style={[styles.largeButtonContainer, { right: 12 }]}
-      >
-       <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
-      </TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={() => {shareFile(image)}}
+                  style={[styles.largeButtonContainer, { right: 64 }]}
+                >
+                  <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={() => {downloadFiles(image)}}
+                  style={[styles.largeButtonContainer, { right: 12 }]}
+                >
+                <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+                </TouchableOpacity>
               </View>
             }
           />),

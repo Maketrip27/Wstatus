@@ -108,3 +108,8 @@ export const getRandomInt = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
+export const getRandomAdUnit= (ad) => {
+	let a =ad[Math.floor(Math.random() * ad.length)];
+	console.log("addd------------",a)
+	return a;
+}

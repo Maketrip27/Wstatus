@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList} from 'react-native';
 import {VideoFeed} from '../../component/videoFeed.js';
 import { Container, Content,  Body,Left,Right,Header,Title } from 'native-base';
-import Video from 'react-native-video';
-import { containerStyle } from '../../utils/helper.js';
+import { containerStyle,getRandomInt,getRandomAdUnit } from '../../utils/helper.js';
 import NoData from '../../component/noData';
-
+import {
+  AdMobBanner
+} from 'react-native-admob'
+import Ad from '../../config/ad';
 export default class App extends Component {
   
   componentWillMount(){
@@ -15,15 +17,43 @@ export default class App extends Component {
     return (
       <Container>
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
+        <AdMobBanner
+            adSize="fullBanner"
+            adUnitID={Ad.topAd}
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.log(error)}
+        />
         {this.props.videos.length > 0 ?
           <FlatList
               contentContainerStyle={styles.list}
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
-              renderItem={(item) => {
-                return  (<VideoFeed video_url={item.item}/>)
+              renderItem={({item,index}) => {
+                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,2) === 2){
+                  return(
+                    <View>
+                      <View/>
+                      <View style={{width:170, flex: 1}}>
+                        <AdMobBanner
+                          adSize="fullBanner"
+                          adUnitID={getRandomAdUnit(Ad.bannerAd)}
+                          testDevices={[AdMobBanner.simulatorId]}
+                          onAdFailedToLoad={error => console.log(error)}
+                        />
+                      </View>
+                      <VideoFeed video_url={item}/>
+                    </View>)
+                }else{
+                  return  (<VideoFeed video_url={item}/>)
+                }
           }}/>:
           <NoData message="No video status available."/>}
+          <AdMobBanner
+            adSize="fullBanner"
+            adUnitID={Ad.videoBottomAd}
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.log(error)}
+          />
        </Content>
       </Container>
     );

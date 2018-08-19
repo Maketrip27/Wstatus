@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  ImageBackground,
-  ToastAndroid,
-  ScrollView,
   View,
   Dimensions
 } from 'react-native';
-import { Container, Content, Item, Input, Card, CardItem, Text, Button, Thumbnail,Body,Left,Right,Icon,Spinner,List,Header,Title } from 'native-base';
-import RNFetchBlob from 'rn-fetch-blob'
+import {CardItem, Button, Left,Right,Icon,List} from 'native-base';
 import { getWhatsappStatusDirectory,downloadFiles, shareFile,getFilePath } from '../utils/helper.js';
-import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
 import RNThumbnail from 'react-native-thumbnail';
 
