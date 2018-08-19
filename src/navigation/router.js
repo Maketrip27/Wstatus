@@ -32,7 +32,7 @@ const Tabs = createBottomTabNavigator({
     inactiveBackgroundColor: CONFIG.themeColor,
     inactiveTintColor: '#d7e5e3',
     showIcon:true,
-      labelStyle: {fontSize: 14}
+    labelStyle: {fontSize: 14}
 
   },
 });
@@ -40,7 +40,14 @@ const Tabs = createBottomTabNavigator({
 const NavigationStack = createStackNavigator({
   Splash: {screen: Splash},
   AppIntro: {screen: AppIntro},
-  Home: {screen: Tabs},
+  Home: {
+      screen: Tabs,
+      navigationOptions: {
+        cardStack: {
+          gesturesEnabled: false,
+        }
+      }
+    },
   Priview: {screen: Priview}
   },
   {
@@ -51,6 +58,9 @@ const NavigationStack = createStackNavigator({
       gesturesEnabled: false,
       headerLeft: null,
       gesturesDirection: 'inverted',
+      cardStack: {
+        gesturesEnabled: false,
+      }
     },
     cardStyle: {
       backgroundColor: "#ffffff"

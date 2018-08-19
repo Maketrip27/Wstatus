@@ -26,22 +26,33 @@ const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 const myAnimatedValue = new Animated.Value(0);
 
 export default class ImageListComponent extends Component {
-  
+  constructor(props){
+    super(props);
+    this.selected = 0
+    this.totalAdd = 1;
+  }
   componentWillMount(){
-    console.log(this.props)
-    StatusBar.setHidden(true, 'none');
+    setTimeout(()=>{
+      StatusBar.setHidden(true, 'none');
+    },1000)
+  }
+  componentWillUnmount(){
+    StatusBar.setHidden(false, 'none');
   }
   getAd = (index) => {
     console.log("preview",index)
-    if((index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+    if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
       console.log("preview",index)
+      this.totalAdd += 1;
       return(
-        <AdMobBanner
-          adSize="fullBanner"
-          adUnitID={getRandomAdUnit(Ad.previewAd)}
-          testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => console.log(error)}
-        />
+        <View style={styles.bottomView}>
+          <AdMobBanner
+            adSize="fullBanner"
+            adUnitID={getRandomAdUnit(Ad.previewAd)}
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.log(error)}
+          />
+        </View>
       )
     }
     else{
@@ -52,10 +63,12 @@ export default class ImageListComponent extends Component {
     return(
       <View>
       <ParallaxSwiper
-        speed={0.75}
+        speed={1}
         dividerWidth={6}
         dividerColor="black"
         animatedValue={myAnimatedValue}
+        onMomentumScrollEnd={(data)=>{this.selected= data}}
+        scrollToIndex={this.selected}
       >
         {this.props.images.map((image,index) =>
           (<ParallaxSwiperPage
@@ -209,5 +222,15 @@ const styles = StyleSheet.create({
   progressBar: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'white',
+  },
+  bottomView:{
+    width: '100%', 
+    height: 50, 
+    backgroundColor: '#FF9800', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    marginBottom:20
   },
 });

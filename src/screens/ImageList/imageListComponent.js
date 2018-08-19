@@ -18,6 +18,7 @@ export default class ImageListComponent extends Component {
     this.state = {
       isActionButtonVisible: true
     }
+    this.totalAdd = 1;
   }
   componentWillMount(){
     console.log(this.props.images)
@@ -33,6 +34,7 @@ export default class ImageListComponent extends Component {
     console.log('App has come to the foreground!',nextAppState)
     if(nextAppState !== "background"){
       this.props.fetchWhatsAppFiles()
+      this.totalAdd = 0
     }
   }
   _navigate = (name) => {
@@ -76,7 +78,8 @@ export default class ImageListComponent extends Component {
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
                 console.log(index,"----------------",(index+1)%2)
-                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+                if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+                  this.totalAdd +=1;
                   return(
                     <View>
                     <View/>
