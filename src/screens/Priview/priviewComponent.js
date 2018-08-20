@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   bottomView:{
     width: '100%', 
     height: 50, 
-    backgroundColor: '#FF9800', 
+    backgroundColor: 'black', 
     justifyContent: 'center', 
     alignItems: 'center',
     position: 'absolute',

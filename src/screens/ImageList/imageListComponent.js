@@ -9,6 +9,7 @@ import {
   AdMobBanner
 } from 'react-native-admob'
 import Ad from '../../config/ad';
+import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 
 const {height, width} = Dimensions.get('window');
 
@@ -72,7 +73,7 @@ export default class ImageListComponent extends Component {
             onAdFailedToLoad={error => console.log(error)}
           />
         {this.props.images.length > 0 ?
-          <FlatList
+          <OptimizedFlatList
               contentContainerStyle={styles.list}
               data={this.props.images}
               keyExtractor={(item, index) => item.id}
@@ -91,11 +92,11 @@ export default class ImageListComponent extends Component {
                       onAdFailedToLoad={error => console.log(error)}
                     />
                       </View>
-                      <Feed image_url={item}/>
+                      <Feed image_url={item} id={index}/>
                     </View>
                     )
                 }else{
-                return  (<Feed image_url={item}/>)
+                return  (<Feed image_url={item} id={index}/>)
               }
           }}/> :
           <NoData message="No status available."/>}

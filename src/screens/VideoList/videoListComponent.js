@@ -8,6 +8,8 @@ import {
   AdMobBanner
 } from 'react-native-admob'
 import Ad from '../../config/ad';
+import {OptimizedFlatList} from 'react-native-optimized-flatlist'
+
 export default class App extends Component {
   
   componentWillMount(){
@@ -24,7 +26,7 @@ export default class App extends Component {
             onAdFailedToLoad={error => console.log(error)}
         />
         {this.props.videos.length > 0 ?
-          <FlatList
+          <OptimizedFlatList
               contentContainerStyle={styles.list}
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
@@ -41,10 +43,10 @@ export default class App extends Component {
                           onAdFailedToLoad={error => console.log(error)}
                         />
                       </View>
-                      <VideoFeed video_url={item}/>
+                      <VideoFeed video_url={item} id={index}/>
                     </View>)
                 }else{
-                  return  (<VideoFeed video_url={item}/>)
+                  return  (<VideoFeed video_url={item} id={index}/>)
                 }
           }}/>:
           <NoData message="No video status available."/>}

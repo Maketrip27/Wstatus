@@ -30,9 +30,9 @@ export class VideoFeed extends Component {
   }
   render() {
     return (
-            <List style={styles.gird}>
-              <CardItem cardBody>
-                <View>
+            <List style={styles.gird} key={this.props.id+"Vlist"}>
+              <CardItem cardBody key={this.props.id+"VCI"}>
+                <View key={this.props.key+"View"}>
                  <VideoPlayer
                     endWithThumbnail
                     thumbnail={{uri: this.thumbnail}}
@@ -40,16 +40,17 @@ export class VideoFeed extends Component {
                     customStyles={{flex: 1,width: width/2}}
                     duration={undefined}
                     ref={r => this.player = r}
+                    key={this.props.id+"Vplay"}
                   />
-                  <CardItem style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                    <Left>
-                      <Button transparent onPress={ () =>  shareFile(this.props.video_url)}>
-                        <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 20}}/>
+                  <CardItem key={this.props.id+"Vcii"} style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                    <Left key={this.props.id+"Vleft"}>
+                      <Button key={this.props.id+"Vlbtn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
+                        <Icon key={this.props.id+"Vlicon"} active name="md-share-alt" style = {{color: 'white', fontSize: 20}}/>
                       </Button>
                     </Left>
-                    <Right>
-                     <Button transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
-                        <Icon active name="md-download" style = {{color: 'white', fontSize: 20}}/>
+                    <Right key={this.props.id+"Vrbtn"}>
+                     <Button key={this.props.id+"Vrbtnd"} transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
+                        <Icon key={this.props.id+"Vricon"}active name="md-download" style = {{color: 'white', fontSize: 20}}/>
                       </Button>
                     </Right>
                   </CardItem>
