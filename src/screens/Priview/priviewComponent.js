@@ -39,9 +39,12 @@ export default class ImageListComponent extends Component {
   componentWillUnmount(){
     StatusBar.setHidden(false, 'none');
   }
+  componentWillReceiveProps(){
+    this.totalAdd = 1;
+  }
   getAd = (index) => {
     console.log("preview",index)
-    if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+    if(Ad.previewAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
       console.log("preview",index)
       this.totalAdd += 1;
       return(

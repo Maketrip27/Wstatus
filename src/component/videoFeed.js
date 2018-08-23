@@ -18,7 +18,7 @@ export class VideoFeed extends Component {
     this.thumbnail = undefined;
   }
 
-  componentWillMount(){
+  componentDidMount(){
     let dir =  getWhatsappStatusDirectory() + '/'  + this.props.video_url;
     let  self=this;
     RNThumbnail.get(dir).then((result) => {
@@ -34,7 +34,7 @@ export class VideoFeed extends Component {
               <CardItem cardBody key={this.props.id+"VCI"}>
                 <View key={this.props.key+"View"}>
                  <VideoPlayer
-                    endWithThumbnail
+                    endWithThumbnail={false}
                     thumbnail={{uri: this.thumbnail}}
                     video={{ uri: getFilePath(this.props.video_url) }}
                     customStyles={{flex: 1,width: width/2}}
