@@ -41,6 +41,7 @@ export class VideoFeed extends Component {
                     duration={undefined}
                     ref={r => this.player = r}
                     key={this.props.id+"Vplay"}
+                    autoplay={false}
                   />
                   <CardItem key={this.props.id+"Vcii"} style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"Vleft"}>

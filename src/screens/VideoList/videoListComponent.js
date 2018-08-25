@@ -9,15 +9,30 @@ import {
 } from 'react-native-admob'
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
+import Loading from '../../component/loading.js';
+
 
 export default class App extends Component {
-  
+  constructor(props){
+    super(props);
+    this.state={
+      loading: true
+    }
+  }
   componentWillMount(){
     console.log("sss",this.props.videos)
   }
+  componentDidMount() {
+    console.log("appoinments", this.props)
+    setTimeout(()=>{
+      this.setState({loading: false});
+    },3000)
+  }
+  
   render() {
     return (
       <Container>
+      {(this.state.loading)? <Loading/> :
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
         <AdMobBanner
             adSize="fullBanner"
@@ -56,7 +71,7 @@ export default class App extends Component {
             testDevices={[AdMobBanner.simulatorId]}
             onAdFailedToLoad={error => console.log(error)}
           />
-       </Content>
+       </Content>}
       </Container>
     );
   }
