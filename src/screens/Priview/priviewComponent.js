@@ -20,6 +20,9 @@ import {Icon} from 'native-base';
 import {
   AdMobBanner
 } from 'react-native-admob'
+import {OptimizedFlatList} from 'react-native-optimized-flatlist'
+import Loading from '../../component/loading.js';
+import FastImage from 'react-native-fast-image'
 import Ad from '../../config/ad';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
@@ -28,6 +31,9 @@ const myAnimatedValue = new Animated.Value(0);
 export default class ImageListComponent extends Component {
   constructor(props){
     super(props);
+    this.state={
+      loading: true
+    }
     this.selected = 0
     this.totalAdd = 1;
   }
@@ -41,6 +47,12 @@ export default class ImageListComponent extends Component {
   }
   componentWillReceiveProps(){
     this.totalAdd = 1;
+  }
+  componentDidMount() {
+    console.log("appoinments", this.props)
+    setTimeout(()=>{
+      this.setState({loading: false});
+    },1000)
   }
   getAd = (index) => {
     console.log("preview",index)
@@ -63,6 +75,9 @@ export default class ImageListComponent extends Component {
     }
   }
   render(){
+    if (this.state.loading)
+      return (<Loading message="Please wait fetching status."/>)
+    else
     return(
       <View>
       <ParallaxSwiper
@@ -76,14 +91,14 @@ export default class ImageListComponent extends Component {
         {this.props.images.map((image,index) =>
           (<ParallaxSwiperPage
             BackgroundComponent={
-              <ImageBackground
+              <FastImage
                 style={styles.image}
                 source={{
                   uri: getFilePath(image),
                 }}
                 resizeMode="contain"
               >{ this.getAd(index)}
-              </ImageBackground>
+              </FastImage>
             }
             ForegroundComponent={
               <View style={styles.innerContainer}>

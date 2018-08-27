@@ -32,7 +32,7 @@ export default class App extends Component {
   render() {
     return (
       <Container>
-      {(this.state.loading)? <Loading/> :
+      {(this.state.loading)? <Loading message="Please wait fetching video."/>:
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
         <AdMobBanner
             adSize="fullBanner"

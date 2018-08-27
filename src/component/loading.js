@@ -17,7 +17,9 @@ export default class Loading extends Component {
             autoPlay
             loop
           />
-          <Text style={{top:30, color: CONFIG.themeColor}}>Please wait fetching video.</Text>
+          <Text style={{top:30, color: CONFIG.themeColor}}>
+            {this.props.message}
+          </Text>
         </Content>
     );
   }

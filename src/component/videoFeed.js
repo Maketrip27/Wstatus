@@ -46,12 +46,12 @@ export class VideoFeed extends Component {
                   <CardItem key={this.props.id+"Vcii"} style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"Vleft"}>
                       <Button key={this.props.id+"Vlbtn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
-                        <Icon key={this.props.id+"Vlicon"} active name="md-share-alt" style = {{color: 'white', fontSize: 20}}/>
+                        <Icon key={this.props.id+"Vlicon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
                       </Button>
                     </Left>
                     <Right key={this.props.id+"Vrbtn"}>
                      <Button key={this.props.id+"Vrbtnd"} transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
-                        <Icon key={this.props.id+"Vricon"}active name="md-download" style = {{color: 'white', fontSize: 20}}/>
+                        <Icon key={this.props.id+"Vricon"}active name="md-download" style = {{color: 'white', fontSize: 23}}/>
                       </Button>
                     </Right>
                   </CardItem>
