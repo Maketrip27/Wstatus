@@ -49,7 +49,7 @@ export default class SplashComponent extends Component {
         }else{
           this.props.fetchWhatsAppFiles()
           setTimeout(()=>{
-            if (this.state.appIntro !== true){
+            if (this.state.appIntro === true){
               this._navigate('Home')
             }else{
               this._navigate('AppIntro')

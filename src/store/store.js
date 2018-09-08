@@ -4,8 +4,7 @@ import {logger} from 'redux-logger';
 import rootReducer from '../reducer/rootReducer'
 
 const middleware = [
-  thunkMiddleware,
-  logger
+  thunkMiddleware
 ];
 
 const enhancers = [applyMiddleware(...middleware)];
