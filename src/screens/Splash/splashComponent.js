@@ -5,7 +5,8 @@ import {
   Text, 
   View,
   PermissionsAndroid,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import {Button} from 'native-base';
 import { NavigationActions } from "react-navigation";
@@ -16,11 +17,24 @@ import LottieView from 'lottie-react-native';
 export default class SplashComponent extends Component {
   constructor() {
     super();
+    this.state={
+      appIntro: true
+    }
   }
   componentWillMount(){
     getThumbnailfiles()
     console.log(this.props)
     this.requestCameraPermission()
+    AsyncStorage.getItem("introduction", (err, result) => {
+      console.log("result=>>>>>>.", result)
+      if (result !=null && result === 'true'){
+        console.log("result is null");
+         this.setState({appIntro: true});
+       }else{
+        AsyncStorage.setItem("introduction", 'true');
+        this.setState({appIntro: false});
+       }
+    });
   }
 
   async  requestCameraPermission() {
@@ -35,7 +49,11 @@ export default class SplashComponent extends Component {
         }else{
           this.props.fetchWhatsAppFiles()
           setTimeout(()=>{
-            this._navigate('Home')
+            if (this.state.appIntro !== true){
+              this._navigate('Home')
+            }else{
+              this._navigate('AppIntro')
+            }
           },3000)
         }
       })

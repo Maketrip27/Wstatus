@@ -37,11 +37,7 @@ export default class ImageListComponent extends Component {
     this.selected = 0
     this.totalAdd = 1;
   }
-  componentWillMount(){
-    setTimeout(()=>{
-      StatusBar.setHidden(true, 'none');
-    },1000)
-  }
+
   componentWillUnmount(){
     StatusBar.setHidden(false, 'none');
   }
@@ -52,6 +48,7 @@ export default class ImageListComponent extends Component {
     console.log("appoinments", this.props)
     setTimeout(()=>{
       this.setState({loading: false});
+      StatusBar.setHidden(true, 'none');
     },1000)
   }
   getAd = (index) => {
@@ -100,22 +97,7 @@ export default class ImageListComponent extends Component {
               >{ this.getAd(index)}
               </FastImage>
             }
-            ForegroundComponent={
-              <View style={styles.innerContainer}>
-                <TouchableOpacity 
-                  onPress={() => {shareFile(image)}}
-                  style={[styles.largeButtonContainer, { right: 64 }]}
-                >
-                  <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                  onPress={() => {downloadFiles(image)}}
-                  style={[styles.largeButtonContainer, { right: 12 }]}
-                >
-                <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
-                </TouchableOpacity>
-              </View>
-            }
+            ForegroundComponent={<View/>}
           />),
         )}
       </ParallaxSwiper>
@@ -128,8 +110,19 @@ export default class ImageListComponent extends Component {
       >
         <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
       </TouchableOpacity>
-      
-      <View style={styles.progressBarContainer}>
+      <TouchableOpacity 
+        onPress={() => {shareFile(this.props.images[this.selected])}}
+        style={[styles.largeButtonContainer, { right: 64 }]}
+      >
+        <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        onPress={() => {downloadFiles(this.props.images[this.selected])}}
+        style={[styles.largeButtonContainer, { right: 12 }]}
+      >
+        <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+      </TouchableOpacity>
+      {/* <View style={styles.progressBarContainer}>
         <Animated.View
           style={[
             styles.progressBar,
@@ -146,7 +139,7 @@ export default class ImageListComponent extends Component {
             },
           ]}
         />
-      </View>
+      </View> */}
     </View>);
   }
 }

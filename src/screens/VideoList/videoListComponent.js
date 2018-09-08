@@ -10,13 +10,15 @@ import {
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
+import { NavigationEvents } from "react-navigation";
 
 
 export default class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      loading: true
+      loading: true,
+      stopVideo: false
     }
   }
   componentWillMount(){
@@ -34,6 +36,12 @@ export default class App extends Component {
       <Container>
       {(this.state.loading)? <Loading message="Please wait fetching video."/>:
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
+        <NavigationEvents
+          onWillFocus={payload => {
+            console.log("will focus", payload);
+            this.setState({stopVideo: !this.state.stopVideo})
+          }}
+        />
         <AdMobBanner
             adSize="fullBanner"
             adUnitID={Ad.topAd}
@@ -58,7 +66,7 @@ export default class App extends Component {
                           onAdFailedToLoad={error => console.log(error)}
                         />
                       </View>
-                      <VideoFeed video_url={item} id={index}/>
+                      <VideoFeed video_url={item} id={index} videoStop={this.state.stopVideo}/>
                     </View>)
                 }else{
                   return  (<VideoFeed video_url={item} id={index}/>)
