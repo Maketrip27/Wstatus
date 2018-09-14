@@ -37,13 +37,16 @@ export class VideoFeed extends Component {
                     endWithThumbnail={false}
                     thumbnail={{uri: this.thumbnail}}
                     video={{ uri: getFilePath(this.props.video_url) }}
-                    customStyles={{flex: 1,width: width/2}}
+                    customStyles={{flex: 1}}
+                    videoWidth={width}
+                    videoHeight={width/2}
                     duration={undefined}
                     ref={r => this.player = r}
                     key={this.props.id+"Vplay"}
                     autoplay={false}
+                    fullScreenOnLongPress={true}
                   />
-                  <CardItem key={this.props.id+"Vcii"} style={{ width: width/2,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                  <CardItem key={this.props.id+"Vcii"} style={{ width: width,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"Vleft"}>
                       <Button key={this.props.id+"Vlbtn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
                         <Icon key={this.props.id+"Vlicon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
@@ -88,11 +91,6 @@ const styles = StyleSheet.create({
   },
   gird:{
     flex: 1,
-    margin: 3,
-    minWidth: 170,
-    maxWidth: 170,
-    maxHeight:170,
-    // height: 150,
-    backgroundColor: 'red',
+    margin: 5
     }
 });

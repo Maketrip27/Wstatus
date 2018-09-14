@@ -79,25 +79,25 @@ export default class ImageListComponent extends Component {
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
                 console.log(index,"----------------",(index+1)%2)
-                if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
-                  this.totalAdd +=1;
-                  return(
-                    <View>
-                    <View/>
-                    <View style={{width:170, flex: 1}}>
-                    <AdMobBanner
-                      adSize="fullBanner"
-                      adUnitID={getRandomAdUnit(Ad.bannerAd)}
-                      testDevices={[AdMobBanner.simulatorId]}
-                      onAdFailedToLoad={error => console.log(error)}
-                    />
-                      </View>
-                      <Feed image_url={item} id={index}/>
-                    </View>
-                    )
-                }else{
+                // if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
+                //   this.totalAdd +=1;
+                //   return(
+                //     <View>
+                //     <View/>
+                //     <View style={{width:170, flex: 1}}>
+                //     <AdMobBanner
+                //       adSize="fullBanner"
+                //       adUnitID={getRandomAdUnit(Ad.bannerAd)}
+                //       testDevices={[AdMobBanner.simulatorId]}
+                //       onAdFailedToLoad={error => console.log(error)}
+                //     />
+                //       </View>
+                //       <Feed image_url={item} id={index}/>
+                //     </View>
+                //     )
+                // }else{
                 return  (<Feed image_url={item} id={index}/>)
-              }
+              // }
           }}/> :
           <NoData message="No status available."/>}
           <AdMobBanner

@@ -29,6 +29,7 @@ export default class App extends Component {
   }
   
   render() {
+    let length = this.props.videos.length;
     return (
       <Container>
       {(this.state.loading)? <Loading message="Please wait fetching video."/>:
@@ -39,13 +40,12 @@ export default class App extends Component {
             testDevices={[AdMobBanner.simulatorId]}
             onAdFailedToLoad={error => console.log(error)}
         />
-        {this.props.videos.length > 0 ?
+        {length > 0 ?
           <OptimizedFlatList
-              contentContainerStyle={styles.list}
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                if((index+1)%2 === 1 && index !=0 && getRandomInt(1,2) === 2){
+                if(getRandomInt(1,4) === 2){
                   return(
                     <View>
                       <View/>

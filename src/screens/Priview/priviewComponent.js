@@ -24,8 +24,9 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
 import FastImage from 'react-native-fast-image'
 import Ad from '../../config/ad';
+import Carousel from 'react-native-snap-carousel';
 
-const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
+const { width, height} = Dimensions.get('window');
 const myAnimatedValue = new Animated.Value(0);
 
 export default class ImageListComponent extends Component {
@@ -53,8 +54,9 @@ export default class ImageListComponent extends Component {
   }
   getAd = (index) => {
     console.log("preview",index)
-    if(Ad.previewAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
-      console.log("preview",index)
+    // Ad.previewAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2
+    if(getRandomInt(1,6) === 3){
+      console.log("1preview",index)
       this.totalAdd += 1;
       return(
         <View style={styles.bottomView}>
@@ -76,141 +78,58 @@ export default class ImageListComponent extends Component {
       return (<Loading message="Please wait fetching status."/>)
     else
     return(
-      <View>
-      <ParallaxSwiper
-        speed={1}
-        dividerWidth={6}
-        dividerColor="black"
-        animatedValue={myAnimatedValue}
-        onMomentumScrollEnd={(data)=>{this.selected= data}}
-        scrollToIndex={this.selected}
-      >
-        {this.props.images.map((image,index) =>
-          (<ParallaxSwiperPage
-            BackgroundComponent={
-              <FastImage
-                style={styles.image}
-                source={{
-                  uri: getFilePath(image),
+            <View>
+              <TouchableOpacity
+                onPress={() => {
+                  StatusBar.setHidden(false, 'none');
+                  this.props.navigation.goBack();
                 }}
-                resizeMode="contain"
-              >{ this.getAd(index)}
-              </FastImage>
-            }
-            ForegroundComponent={<View/>}
-          />),
-        )}
-      </ParallaxSwiper>
-      <TouchableOpacity
-        onPress={() => {
-          StatusBar.setHidden(false, 'none');
-          this.props.navigation.goBack();
-        }}
-        style={[styles.largeButtonContainer, { left: 12 }]}
-      >
-        <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => {shareFile(this.props.images[this.selected])}}
-        style={[styles.largeButtonContainer, { right: 64 }]}
-      >
-        <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => {downloadFiles(this.props.images[this.selected])}}
-        style={[styles.largeButtonContainer, { right: 12 }]}
-      >
-        <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
-      </TouchableOpacity>
-      {/* <View style={styles.progressBarContainer}>
-        <Animated.View
-          style={[
-            styles.progressBar,
-            {
-              transform: [
-                {
-                  translateX: myAnimatedValue.interpolate({
-                    inputRange: [0, (deviceWidth + 6) * (this.props.images.length - 1)],
-                    outputRange: [-deviceWidth, 0],
-                    extrapolate: 'clamp',
-                  }),
-                },
-              ],
-            },
-          ]}
-        />
-      </View> */}
-    </View>);
+                style={[styles.largeButtonContainer, { left: 12 }]}
+              >
+                <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                onPress={() => {shareFile(this.props.images[this.selected])}}
+                style={[styles.largeButtonContainer, { right: 64 }]}
+              >
+                <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                onPress={() => {downloadFiles(this.props.images[this.selected])}}
+                style={[styles.largeButtonContainer, { right: 12 }]}
+              >
+                <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+              </TouchableOpacity>
+              <Carousel
+                ref={(c) => { this._carousel = c; }}
+                data={this.props.images}
+                inactiveSlideScale={0.94}
+                inactiveSlideOpacity={0.7}
+                onSnapToItem={(index) => {this.selected= index; console.log(index)} }
+                renderItem={({item,index}) => (
+                  <View style = {{backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)'}}>
+                                  {console.log("eee----------")}
+                    <FastImage
+                      style={styles.image}
+                      source={{
+                        uri: getFilePath(item),
+                      }}
+                      resizeMode="contain"
+                    >{ this.getAd(index)}
+                    </FastImage>
+                  </View>
+                )}
+                sliderWidth={width}
+                itemWidth={width}
+              />
+          </View>
+    )
   }
 }
 const styles = StyleSheet.create({
-  innerContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   image: {
-    width: deviceWidth,
-    height: deviceHeight,
-  },
-  gradient: {
-    paddingHorizontal: 12,
-    paddingVertical: 24,
-    backgroundColor: 'transparent',
-  },
-  twitterNameAndHandleContainer: {
-    flexDirection: 'row',
-    marginBottom: 4,
-  },
-  twitterName: {
-    marginRight: 4,
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
-  },
-  twitterHandle: {
-    fontSize: 16,
-    color: 'white',
-  },
-  tweetTextContainer: {
-    marginBottom: 12,
-  },
-  tweetText: {
-    fontSize: 16,
-    color: 'white',
-  },
-  buttonWithTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 24,
-  },
-  bottomIconsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  icon: {
-    tintColor: 'white',
-  },
-  buttonText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  smallButtonsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  smallButtonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 24,
-    height: 24,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 12,
-  },
-  smallButtonWithTextIconContainer: {
-    marginRight: 12,
+    width: width,
+    height: height,
   },
   largeButtonContainer: {
     alignItems: 'center',
@@ -221,18 +140,7 @@ const styles = StyleSheet.create({
     height: 32,
     backgroundColor: 'rgba(0,0,0,0.50)',
     borderRadius: 16,
-  },
-  progressBarContainer: {
-    position: 'absolute',
-    bottom: 10,
-    left: 0,
-    right: 0,
-    height: 4,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-  },
-  progressBar: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'white',
+    zIndex:5
   },
   bottomView:{
     width: '100%', 
@@ -243,5 +151,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     marginBottom:20
-  },
+  }
 });
