@@ -4,35 +4,40 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Animated,
   StatusBar
 } from 'react-native';
 
-import { downloadFiles, shareFile,getRandomAdUnit } from '../../utils/helper.js';
+import { downloadFiles, shareFile,getFilePath,getRandomAdUnit,getRandomInt } from '../../utils/helper.js';
 import {Icon} from 'native-base';
 import {
   AdMobBanner
 } from 'react-native-admob'
 import Ad from '../../config/ad';
-import PhotoView from 'react-native-photo-view';
+import VideoPlayer from 'react-native-video-player';
 
 const { width, height} = Dimensions.get('window');
+
 export default class ImageListComponent extends Component {
   constructor(props){
     super(props);
   }
+
   componentWillUnmount(){
     StatusBar.setHidden(false, 'none');
   }
-  componentWillReceiveProps(){
-  }
-  componentDidMount() {
-    StatusBar.setHidden(true, 'none');
-  }
 
+  componentDidMount() {
+    console.log("appoinments", this.props)
+    setTimeout(()=>{
+      this.setState({loading: false});
+      StatusBar.setHidden(true, 'none');
+    },1000)
+  }
   render(){
-    const {url, shareUrl} = this.props.navigation.state.params;
+      const {url, thumbnail,shareUrl} = this.props.navigation.state.params;
     return(
-            <View style={{flex:1,backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)',alignItems:'center',justifyContent:'center'}}>
+             <View style={{flex:1,backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)',alignItems:'center',justifyContent:'center'}}>
               <TouchableOpacity
                 onPress={() => {
                   StatusBar.setHidden(false, 'none');
@@ -54,19 +59,30 @@ export default class ImageListComponent extends Component {
               >
                 <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
               </TouchableOpacity>
-              <PhotoView
-                source={{uri: url}}
-                androidScaleType="center"
-                style={{width: width, height: height}} />
-              <View style={styles.bottomView}>
-                <AdMobBanner
-                    adSize="fullBanner"
-                    adUnitID={getRandomAdUnit(Ad.previewAd)}
-                    testDevices={[AdMobBanner.simulatorId]}
-                    onAdFailedToLoad={error => console.log(error)}
+                <VideoPlayer
+                    endWithThumbnail={false}
+                    thumbnail={{uri: thumbnail}}
+                    video={{ uri: url }}
+                    style={{width}}
+                    videoWidth={width}
+                    videoHeight={width}
+                    duration={undefined}
+                    ref={r => this.player = r}
+                    key={this.props.id+"Vplay"}
+                    autoplay={true}
+                    pauseOnPress={true}
+                    disableControlsAutoHide={true}
+                    disableSeek={true}
                 />
-              </View>
-          </View>
+                <View style={styles.bottomView}>
+                    <AdMobBanner
+                        adSize="fullBanner"
+                        adUnitID={getRandomAdUnit(Ad.previewAd)}
+                        testDevices={[AdMobBanner.simulatorId]}
+                        onAdFailedToLoad={error => console.log(error)}
+                    />
+                </View>
+            </View>
     )
   }
 }

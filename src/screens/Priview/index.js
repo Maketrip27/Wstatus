@@ -5,10 +5,7 @@ import {fetchWhatsAppFiles} from '../../reducer/actions.js';
 
 import PriviewComponent from './priviewComponent';
 
-const mapStateToProps = state => ({
-	images: state.files.images,
-	videos: state.files.videos
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
 	fetchWhatsAppFiles

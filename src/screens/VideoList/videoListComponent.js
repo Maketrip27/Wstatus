@@ -10,6 +10,7 @@ import {
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
+import { NavigationActions } from "react-navigation";
 
 export default class App extends Component {
   constructor(props){
@@ -25,7 +26,15 @@ export default class App extends Component {
     console.log("appoinments", this.props)
     setTimeout(()=>{
       this.setState({loading: false});
-    },3000)
+    },500)
+  }
+
+  _navigate = (name, params = {}) => {
+    const navigate = NavigationActions.navigate({
+      routeName: name,
+      params: params
+    });
+    this.props.navigation.dispatch(navigate);
   }
   
   render() {
@@ -45,7 +54,7 @@ export default class App extends Component {
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                if(getRandomInt(1,4) === 2){
+                if(index !=0  && getRandomInt(1,5) === 3){
                   return(
                     <View>
                       <View/>
@@ -57,10 +66,10 @@ export default class App extends Component {
                           onAdFailedToLoad={error => console.log(error)}
                         />
                       </View>
-                      <VideoFeed video_url={item} id={index} videoStop={this.state.stopVideo}/>
+                      <VideoFeed video_url={item} id={index} videoStop={this.state.stopVideo} navigate={this._navigate}/>
                     </View>)
                 }else{
-                  return  (<VideoFeed video_url={item} id={index}/>)
+                  return  (<VideoFeed video_url={item} id={index} navigate={this._navigate}/>)
                 }
           }}/>:
           <NoData message="No video status available."/>}

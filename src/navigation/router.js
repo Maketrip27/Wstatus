@@ -7,6 +7,7 @@ import ImageList from '../screens/ImageList/'
 import VideoList from '../screens/VideoList/'
 import Priview from '../screens/Priview';
 import CONFIG from '../config/config';
+import VideoPreview from '../screens/VideoPreview/index';
 
 const Tabs = createBottomTabNavigator({
     Images: {
@@ -48,7 +49,12 @@ const NavigationStack = createStackNavigator({
         }
       }
     },
-  Priview: {screen: Priview}
+  Priview: {screen: Priview},
+  VideoPreview: {
+    screen: VideoPreview,
+    cardStyle: {
+      backgroundColor: 'rgba(0,0,0,0.5)',
+    }}
   },
   {
     initialRouteName: 'Splash',

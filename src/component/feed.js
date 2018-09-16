@@ -1,8 +1,6 @@
-import React, { Component,Video } from 'react';
+import React, { Component} from 'react';
 import {
   StyleSheet,
-  ImageBackground,
-  ScrollView,
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
@@ -15,7 +13,11 @@ export class Feed extends Component {
   render() {
     return (
             <List style={styles.gird} key={this.props.id+"list"}>
-              <CardItem cardBody key={this.props.id+"ci"}>
+              <TouchableWithoutFeedback 
+                button 
+                cardBody 
+                key={this.props.id+"ci"} 
+                onPress={()=>this.props.navigate("Priview",{shareUrl: this.props.image_url, url: getFilePath(this.props.image_url)})}>
                   <FastImage key={this.props.id+"img"} source={{uri: getFilePath(this.props.image_url)}} style={{height: 150,width:width/2, flex: 1, justifyContent:'flex-end'}}>
                   <CardItem key={this.props.id+"CII"} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"left"}>
@@ -30,7 +32,7 @@ export class Feed extends Component {
                     </Right>
                   </CardItem>
                   </FastImage>
-              </CardItem>
+              </TouchableWithoutFeedback>
             </List>
     );
   }
@@ -67,6 +69,5 @@ const styles = StyleSheet.create({
     maxWidth: 170,
     height: 150,
     maxHeight:150,
-    backgroundColor: 'red',
     }
 });

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  View,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import {CardItem, Button, Left,Right,Icon,List} from 'native-base';
 import { getWhatsappStatusDirectory,downloadFiles, shareFile,getFilePath } from '../utils/helper.js';
-import VideoPlayer from 'react-native-video-player';
 import RNThumbnail from 'react-native-thumbnail';
+import FastImage from 'react-native-fast-image'
 
 const {height, width} = Dimensions.get('window');
 
@@ -15,10 +14,14 @@ export class VideoFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {thumbnail: undefined}
-    this.thumbnail = undefined;
+    this.thumbnail = "null";
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps, "ddddddddd--")
+  }
   componentDidMount(){
+    console.log("props------------",this.props)
     let dir =  getWhatsappStatusDirectory() + '/'  + this.props.video_url;
     let  self=this;
     RNThumbnail.get(dir).then((result) => {
@@ -30,37 +33,38 @@ export class VideoFeed extends Component {
   }
   render() {
     return (
-            <List style={styles.gird} key={this.props.id+"Vlist"}>
-              <CardItem cardBody key={this.props.id+"VCI"}>
-                <View key={this.props.key+"View"}>
-                 <VideoPlayer
-                    endWithThumbnail={false}
-                    thumbnail={{uri: this.thumbnail}}
-                    video={{ uri: getFilePath(this.props.video_url) }}
-                    customStyles={{flex: 1}}
-                    videoWidth={width}
-                    videoHeight={width/2}
-                    duration={undefined}
-                    ref={r => this.player = r}
-                    key={this.props.id+"Vplay"}
-                    autoplay={false}
-                    fullScreenOnLongPress={true}
-                  />
-                  <CardItem key={this.props.id+"Vcii"} style={{ width: width,backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                    <Left key={this.props.id+"Vleft"}>
-                      <Button key={this.props.id+"Vlbtn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
-                        <Icon key={this.props.id+"Vlicon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
-                      </Button>
-                    </Left>
-                    <Right key={this.props.id+"Vrbtn"}>
-                     <Button key={this.props.id+"Vrbtnd"} transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
-                        <Icon key={this.props.id+"Vricon"}active name="md-download" style = {{color: 'white', fontSize: 23}}/>
-                      </Button>
-                    </Right>
-                  </CardItem>
-                </View>
+            <List style={styles.gird} key={this.props.id+"list"}>
+              <CardItem cardBody key={this.props.id+"ci"}>
+                  <FastImage 
+                    key={this.props.id+"img"} 
+                    source={{uri: this.thumbnail}} 
+                    style={styles.FastImage}
+                  >
+                    <Button 
+                      style={styles.centerButton}
+                      key={this.props.id+"btn"} transparent 
+                      onPress={ () =>  this.props.navigate("VideoPreview",{thumbnail: this.thumbnail, url: getFilePath(this.props.video_url),shareUrl: this.props.video_url})}
+                    >
+                      <Icon key={this.props.id+"icon"} active name="md-play" style = {{color: 'white'}}/>
+                    </Button>
+                    <CardItem 
+                      key={this.props.id+"CII"} 
+                      style={styles.sharePanel}
+                    >
+                      <Left key={this.props.id+"left"}>
+                        <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
+                          <Icon key={this.props.id+"icon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+                        </Button>
+                      </Left>
+                      <Right key={this.props.id+"right"}>
+                        <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
+                          <Icon key={this.props.id+"ricon"} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+                        </Button>
+                      </Right>
+                    </CardItem>
+                  </FastImage>
               </CardItem>
-            </List>
+          </List>
     );
   }
 }
@@ -92,5 +96,27 @@ const styles = StyleSheet.create({
   gird:{
     flex: 1,
     margin: 5
-    }
+  },
+  centerButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+    backgroundColor: 'rgba(0,0,0,0.60)',
+    borderRadius: 25,
+    zIndex:5,
+    left: width/2 - 30
+  },
+  sharePanel:{ 
+    backgroundColor: 'transparent', 
+    height: 30,
+    width: width,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignContent:'flex-end', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0
+  },
+  FastImage:{height: width/2,width: width, flex: 1,alignItems: 'center',justifyContent: 'center'}
 });

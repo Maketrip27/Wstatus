@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View,StyleSheet, Text,FlatList,AppState,Dimensions,TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, AppState,Dimensions,BackHandler} from 'react-native';
 import {Feed} from '../../component/feed.js';
-import { Container, Content,  Body,Left,Right,Header,Title,Button,Icon } from 'native-base';
+import { Container, Content,Button,Icon } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
-import { containerStyle,getRandomInt,getRandomAdUnit } from '../../utils/helper.js';
+import { containerStyle} from '../../utils/helper.js';
 import {
   AdMobBanner
 } from 'react-native-admob'
@@ -21,6 +21,7 @@ export default class ImageListComponent extends Component {
     }
     this.totalAdd = 1;
   }
+  
   componentWillMount(){
     console.log(this.props.images)
   }
@@ -28,9 +29,12 @@ export default class ImageListComponent extends Component {
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
   }
+  
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
+    BackHandler.exitApp()
   }
+  
   _handleAppStateChange = (nextAppState) => {
     console.log('App has come to the foreground!',nextAppState)
     if(nextAppState !== "background"){
@@ -38,13 +42,15 @@ export default class ImageListComponent extends Component {
       this.totalAdd = 0
     }
   }
-  _navigate = (name) => {
+  
+  _navigate = (name, params) => {
     const navigate = NavigationActions.navigate({
       routeName: name,
-      params: {}
+      params: params
     });
     this.props.navigation.dispatch(navigate);
   }
+  
   _onScroll = (event) => {
     const currentOffset = event.nativeEvent.contentOffset.y
     const direction = (currentOffset > 0 && currentOffset > this._listViewOffset)
@@ -56,15 +62,16 @@ export default class ImageListComponent extends Component {
     }
     this._listViewOffset = currentOffset
   }
+
   render() {
     return (
       <Container>
-        {(this.state.isActionButtonVisible && this.props.images.length > 0) ? <Button style={styles.floatButton} onPress = {()=>this._navigate("Priview")}>
-          <Icon name='ios-expand' style={{fontSize:20,fontWeight:'bold'}}/>
-          <Text style={{right:8,color:"#fff",fontWeight:'bold'}}>Full Screen</Text>
-        </Button> : null}
+        {/* {(this.props.images.length > 0) ? 
+        <Button style={styles.floatButton} onPress = {()=>this._navigate("Priview")}>
+           <Icon name='ios-expand' style={{fontSize:20,fontWeight:'bold'}}/>
+           <Text style={{right:8,color:"#fff",fontWeight:'bold'}}>Full Screen</Text>
+         </Button> : null} */}
         <Content 
-          onScroll={this._onScroll}
           contentContainerStyle = {containerStyle(this.props.images)}>
           <AdMobBanner
             adSize="fullBanner"
@@ -96,7 +103,7 @@ export default class ImageListComponent extends Component {
                 //     </View>
                 //     )
                 // }else{
-                return  (<Feed image_url={item} id={index}/>)
+                return  (<Feed image_url={item} id={index} navigate={this._navigate}/>)
               // }
           }}/> :
           <NoData message="No status available."/>}
