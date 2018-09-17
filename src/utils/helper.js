@@ -48,7 +48,7 @@ export function downloadFiles(file_name) {
 		// download file and confirm it is saved
 		RNFetchBlob.fs.cp(getFilePath(file_name), `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}`)
 				.then((exist) => {
-						ToastAndroid.show("File will saved in WhatsAppStatus folder",ToastAndroid.SHORT)
+						ToastAndroid.show("Status saved in WhatsAppStatus folder",ToastAndroid.SHORT)
 				}).catch((error) => {
 						ToastAndroid.show("Failed to save",ToastAndroid.SHORT)
 		});
