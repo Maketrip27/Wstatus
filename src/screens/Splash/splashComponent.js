@@ -22,13 +22,10 @@ export default class SplashComponent extends Component {
     }
   }
   componentWillMount(){
-    getThumbnailfiles()
-    console.log(this.props)
+    // getThumbnailfiles()
     this.requestCameraPermission()
     AsyncStorage.getItem("introduction", (err, result) => {
-      console.log("result=>>>>>>.", result)
       if (result !=null && result === 'true'){
-        console.log("result is null");
          this.setState({appIntro: true});
        }else{
         AsyncStorage.setItem("introduction", 'true');
@@ -43,7 +40,6 @@ export default class SplashComponent extends Component {
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE]
       ).then((result) => {
-        console.log('result', result);
         if (Object.values(result).includes("denied")){
           this.requestCameraPermission()
         }else{

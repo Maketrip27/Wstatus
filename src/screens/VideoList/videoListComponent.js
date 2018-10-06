@@ -20,10 +20,8 @@ export default class App extends Component {
     }
   }
   componentWillMount(){
-    console.log("sss",this.props.videos)
   }
   componentDidMount() {
-    console.log("appoinments", this.props)
     setTimeout(()=>{
       this.setState({loading: false});
     },500)
@@ -54,7 +52,7 @@ export default class App extends Component {
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                if(index !=0  && getRandomInt(1,5) === 3){
+                if(index !=0  && getRandomInt(1,7) === 3){
                   return(
                     <View>
                       <View/>

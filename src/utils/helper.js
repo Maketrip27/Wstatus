@@ -29,7 +29,6 @@ export function getThumbnailfiles(){
 						deleteFile(THUMBNAIL_DIR+"/"+file)	
 					})
 			}).catch(error => {
-					console.log("eee------------e",error)
 	});
 	return status
 }
@@ -44,20 +43,23 @@ export function getWhatsappStatusFiles() {
 		return status
 }
 
-export function downloadFiles(file_name) {
+export function downloadFiles(file_name, isUrl=false) {
 		// download file and confirm it is saved
-		RNFetchBlob.fs.cp(getFilePath(file_name), `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}`)
-				.then((exist) => {
-						ToastAndroid.show("Status saved in WhatsAppStatus folder",ToastAndroid.SHORT)
-				}).catch((error) => {
-						ToastAndroid.show("Failed to save",ToastAndroid.SHORT)
-		});
+		if (isUrl === true){
+			downloadImageFromUrl(file_name)
+		}else{
+			RNFetchBlob.fs.cp(getFilePath(file_name), `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}`)
+					.then((exist) => {
+							ToastAndroid.show("Status saved in WhatsAppStatus folder",ToastAndroid.SHORT)
+					}).catch((error) => {
+							ToastAndroid.show("Failed to save",ToastAndroid.SHORT)
+			});
+		}
 }
 
 export function createDirectory() {
 		RNFetchBlob.fs.isDir(`${getDownloadDirectory()}/${DIRECTORY_NAME}`)
 				.then((exists) => {
-						console.log("================",exists)
 						if (exists) {
 								return `${getDownloadDirectory()}/${DIRECTORY_NAME}`;
 						} else {
@@ -79,20 +81,38 @@ export function getSavedStatus() {
 		return `${dirs.DownloadDir}/${DIRECTORY_NAME}`;
 }
 
-export function getFilePath(file_name){
+export function getFilePath(file_name, isUrl = false){
+	if (isUrl){
+		return file_name
+	}else
 	return "file://" + getWhatsappStatusDirectory() + "/" + file_name
 }
 
-export const shareFile = (file_name) => {
-	let shareOptions ={
-		title: "Share",
-		url: getFilePath(file_name),
+export const shareFile = (file_name, isUrl) => {
+	if (isUrl){
+		RNFetchBlob
+		.fetch('GET', file_name, {
+		})
+		.then((res) => {
+		  let shareOptions ={
+			title: "Share",
+			url: "data:image/png;base64,"+res.base64(),
+			}
+			Share.open(shareOptions).then((response)=>{
+			}).catch((error)=>{
+				console.log("err",error)
+			})
+		})
+	}else{
+		let shareOptions ={
+			title: "Share",
+			url: getFilePath(file_name),
+		}
+		Share.open(shareOptions).then((response)=>{
+		}).catch((error)=>{
+			console.log("err",error)
+		})
 	}
-	Share.open(shareOptions).then((response)=>{
-		console.log(response)
-	}).catch((error)=>{
-		console.log("err",error)
-	})
 }
 
 export const containerStyle = (data) => {
@@ -110,6 +130,40 @@ export const getRandomInt = (min, max) => {
 }
 export const getRandomAdUnit= (ad) => {
 	let a =ad[Math.floor(Math.random() * ad.length)];
-	console.log("addd------------",a)
 	return a;
 }
+
+export const getFilenameFromUrl = (url) =>{
+	if (url)
+	{
+		var m = url.toString().match(/.*\/(.+?)\./);
+		if (m && m.length > 1)
+		{
+			return m[1];
+		}
+	}
+	return "";
+}
+export const downloadImageFromUrl = (url) => {
+    let file_name = getFilenameFromUrl(url);
+    RNFetchBlob
+    .config({
+      path : `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}.png`
+    })
+    .fetch('GET', url, {
+    })
+    .then((res) => {
+	  ToastAndroid.show("File saved in WhatsAppStatus folder",ToastAndroid.SHORT)
+	})
+}
+export const shareThisApp = (url) =>{
+	let shareOptions ={
+	title: "Share",
+	url: url,
+	}
+	Share.open(shareOptions).then((response)=>{
+	}).catch((error)=>{
+		console.log("err",error)
+	})
+}
+

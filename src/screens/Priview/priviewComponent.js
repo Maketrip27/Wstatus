@@ -30,7 +30,9 @@ export default class ImageListComponent extends Component {
   }
 
   render(){
-    const {url, shareUrl} = this.props.navigation.state.params;
+    let ad = [];
+    const {url, shareUrl, isUrl} = this.props.navigation.state.params;
+    ad = isUrl ? Ad.quotePreview : Ad.previewAd
     return(
             <View style={{flex:1,backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)',alignItems:'center',justifyContent:'center'}}>
               <TouchableOpacity
@@ -43,13 +45,13 @@ export default class ImageListComponent extends Component {
                 <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => {shareFile(shareUrl)}}
+                onPress={() => {shareFile(shareUrl, isUrl)}}
                 style={[styles.largeButtonContainer, { right: 64 }]}
               >
                 <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => {downloadFiles(shareUrl)}}
+                onPress={() => {downloadFiles(shareUrl, isUrl)}}
                 style={[styles.largeButtonContainer, { right: 12 }]}
               >
                 <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
@@ -61,7 +63,7 @@ export default class ImageListComponent extends Component {
               <View style={styles.bottomView}>
                 <AdMobBanner
                     adSize="fullBanner"
-                    adUnitID={getRandomAdUnit(Ad.previewAd)}
+                    adUnitID={getRandomAdUnit(ad)}
                     testDevices={[AdMobBanner.simulatorId]}
                     onAdFailedToLoad={error => console.log(error)}
                 />

@@ -9,14 +9,11 @@ export const UPDATE_VIDEO_LIST = 'UPDATE_VIDEO_LIST';
 export function fetchWhatsAppFiles() {
 	return (dispatch,getState) => {
 		createDirectory()
-    console.log(getWhatsappStatusDirectory())
     RNFetchBlob.fs.ls(getWhatsappStatusDirectory())
         .then(data => {
-        	console.log("files----------",data)
             dispatch(getWhatsappImages(data))
             dispatch(getWhatsappVideos(data))
         }).catch(error => {
-        console.log("-------",error)
     });
   }
 }

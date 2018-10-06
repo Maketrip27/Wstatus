@@ -18,11 +18,11 @@ const slides = [
   {
     key: 'How to use this app ?',
     title: 'How to use this app ?',
-    text: 'View Status from  WhatsApp and Open This App, you will see two tab Images and Videos list.',
+    text: 'View Status from  Whats App and Open This App, you will see two tab Images and Videos list.',
     backgroundColor: '#01776a',
     titleStyle:styles.title,
     textStyle:styles.title,
-    image: require('../../images/whatsapp.png'),
+    image: require('../../images/status.png'),
     imageStyle: styles.image,
   },
   {
@@ -48,7 +48,7 @@ const slides = [
   {
     key: 'Store',
     title: 'Downloaded Status',
-    text: 'All the Downloaded status will be saved in the WhatsApp Status folder.',
+    text: 'All the Downloaded status will be saved in the Whats App Status folder.',
     backgroundColor: '#01776a',
     titleStyle:styles.title,
     textStyle:styles.title,

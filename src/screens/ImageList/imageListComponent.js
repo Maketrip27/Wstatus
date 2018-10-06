@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, AppState,Dimensions,BackHandler} from 'react-native';
+import {StyleSheet, Text, AppState,Dimensions,BackHandler, DrawerLayoutAndroid} from 'react-native';
 import {Feed} from '../../component/feed.js';
 import { Container, Content,Button,Icon } from 'native-base';
 import { NavigationActions } from "react-navigation";
@@ -10,7 +10,7 @@ import {
 } from 'react-native-admob'
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
-
+import SideMenu from '../../component/sideMenu.js';
 const {height, width} = Dimensions.get('window');
 
 export default class ImageListComponent extends Component {
@@ -22,10 +22,6 @@ export default class ImageListComponent extends Component {
     this.totalAdd = 1;
   }
   
-  componentWillMount(){
-    console.log(this.props.images)
-  }
-
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
   }
@@ -36,7 +32,6 @@ export default class ImageListComponent extends Component {
   }
   
   _handleAppStateChange = (nextAppState) => {
-    console.log('App has come to the foreground!',nextAppState)
     if(nextAppState !== "background"){
       this.props.fetchWhatsAppFiles()
       this.totalAdd = 0
@@ -65,6 +60,13 @@ export default class ImageListComponent extends Component {
 
   render() {
     return (
+        <DrawerLayoutAndroid
+          drawerWidth={300}
+          drawerPosition={DrawerLayoutAndroid.positions.Left}
+          ref={(ref) => {
+            this.drawer = ref;
+          }}
+          renderNavigationView={() =><SideMenu/>}>
       <Container>
         {/* {(this.props.images.length > 0) ? 
         <Button style={styles.floatButton} onPress = {()=>this._navigate("Priview")}>
@@ -83,9 +85,9 @@ export default class ImageListComponent extends Component {
           <OptimizedFlatList
               contentContainerStyle={styles.list}
               data={this.props.images}
+              numColumns={3}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                console.log(index,"----------------",(index+1)%2)
                 // if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
                 //   this.totalAdd +=1;
                 //   return(
@@ -103,7 +105,7 @@ export default class ImageListComponent extends Component {
                 //     </View>
                 //     )
                 // }else{
-                return  (<Feed image_url={item} id={index} navigate={this._navigate}/>)
+                return  (<Feed key={index+"whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate}/>)
               // }
           }}/> :
           <NoData message="No status available."/>}
@@ -115,6 +117,7 @@ export default class ImageListComponent extends Component {
           />
        </Content>
       </Container>
+      </DrawerLayoutAndroid>
     );
   }
 }
@@ -137,9 +140,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
    list: {
-    justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    flex: 1,
+    margin: 2
   },
   floatButton:{
     width: 120,

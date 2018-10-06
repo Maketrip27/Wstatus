@@ -28,7 +28,6 @@ export default class ImageListComponent extends Component {
   }
 
   componentDidMount() {
-    console.log("appoinments", this.props)
     setTimeout(()=>{
       this.setState({loading: false});
       StatusBar.setHidden(true, 'none');
@@ -48,13 +47,13 @@ export default class ImageListComponent extends Component {
                 <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => {shareFile(shareUrl)}}
+                onPress={() => {shareFile(shareUrl, false)}}
                 style={[styles.largeButtonContainer, { right: 64 }]}
               >
                 <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => {downloadFiles(shareUrl)}}
+                onPress={() => {downloadFiles(shareUrl, false)}}
                 style={[styles.largeButtonContainer, { right: 12 }]}
               >
                 <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
@@ -65,7 +64,7 @@ export default class ImageListComponent extends Component {
                     video={{ uri: url }}
                     style={{width}}
                     videoWidth={width}
-                    videoHeight={width}
+                    videoHeight={height}
                     duration={undefined}
                     ref={r => this.player = r}
                     key={this.props.id+"Vplay"}
@@ -73,11 +72,12 @@ export default class ImageListComponent extends Component {
                     pauseOnPress={true}
                     disableControlsAutoHide={true}
                     disableSeek={true}
+                    hideControlsOnStart={true}
                 />
                 <View style={styles.bottomView}>
                     <AdMobBanner
                         adSize="fullBanner"
-                        adUnitID={getRandomAdUnit(Ad.previewAd)}
+                        adUnitID={getRandomAdUnit(Ad.videoPreview)}
                         testDevices={[AdMobBanner.simulatorId]}
                         onAdFailedToLoad={error => console.log(error)}
                     />

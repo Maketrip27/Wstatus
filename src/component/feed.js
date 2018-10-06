@@ -16,18 +16,18 @@ export class Feed extends Component {
               <TouchableWithoutFeedback 
                 button 
                 cardBody 
-                key={this.props.id+"ci"} 
-                onPress={()=>this.props.navigate("Priview",{shareUrl: this.props.image_url, url: getFilePath(this.props.image_url)})}>
-                  <FastImage key={this.props.id+"img"} source={{uri: getFilePath(this.props.image_url)}} style={{height: 150,width:width/2, flex: 1, justifyContent:'flex-end'}}>
-                  <CardItem key={this.props.id+"CII"} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                    <Left key={this.props.id+"left"}>
-                      <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.image_url)}>
-                        <Icon key={this.props.id+"icon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+                key={this.props.id+"ci"+this.props.for_key} 
+                onPress={()=>this.props.navigate("Priview",{isUrl: this.props.isUrl, shareUrl: this.props.image_url, url: getFilePath(this.props.image_url,  this.props.isUrl)})}>
+                  <FastImage key={this.props.id+"img"+this.props.for_key} source={{uri: getFilePath(this.props.image_url, this.props.isUrl)}} style={{height: 150,width:width/3 - 5, flex: 1, justifyContent:'flex-end'}}>
+                  <CardItem key={this.props.id+"CII"+this.props.for_key} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                    <Left key={this.props.id+"left"+this.props.for_key}>
+                      <Button key={this.props.id+"btn"+this.props.for_key} transparent onPress={ () =>  shareFile(this.props.image_url, this.props.isUrl)}>
+                        <Icon key={this.props.id+"icon"+this.props.for_key} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
                       </Button>
                     </Left>
-                    <Right key={this.props.id+"right"}>
-                      <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.image_url)}>
-                        <Icon key={this.props.id+"ricon"} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+                    <Right key={this.props.id+"right"+this.props.for_key}>
+                      <Button key={this.props.id+"rbtn"+this.props.for_key} transparent onPress={ () =>  downloadFiles(this.props.image_url, this.props.isUrl)}>
+                        <Icon key={this.props.id+"ricon"+this.props.for_key} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
                       </Button>
                     </Right>
                   </CardItem>
@@ -37,7 +37,6 @@ export class Feed extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -64,9 +63,12 @@ const styles = StyleSheet.create({
   },
   gird:{
     flex: 1,
-    margin: 3,
-    minWidth: 170,
-    maxWidth: 170,
+    marginLeft: 2,
+    marginRight:2,
+    marginBottom:2,
+    marginTop:2,
+    minWidth: width/3-5,
+    maxWidth: width/3-5,
     height: 150,
     maxHeight:150,
     }

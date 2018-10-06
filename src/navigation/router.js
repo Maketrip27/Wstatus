@@ -8,6 +8,8 @@ import VideoList from '../screens/VideoList/'
 import Priview from '../screens/Priview';
 import CONFIG from '../config/config';
 import VideoPreview from '../screens/VideoPreview/index';
+import InstaPics from '../screens/InstaPics/instaPicsComponent';
+import InstaPreviewList from '../screens/InstaPreviewList/index';
 
 const Tabs = createBottomTabNavigator({
     Images: {
@@ -21,6 +23,13 @@ const Tabs = createBottomTabNavigator({
       screen: VideoList,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (<Icon name='md-videocam' style={[{color: tintColor}]}/>
+        )
+      }
+    },
+    'Daily Status': {
+      screen: InstaPics,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (<Icon name='md-apps' style={[{color: tintColor}]}/>
         )
       }
     }
@@ -50,6 +59,7 @@ const NavigationStack = createStackNavigator({
       }
     },
   Priview: {screen: Priview},
+  InstaPreviewList: {screen: InstaPreviewList},
   VideoPreview: {
     screen: VideoPreview,
     cardStyle: {

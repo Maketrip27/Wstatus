@@ -17,33 +17,21 @@ export class VideoFeed extends Component {
     this.thumbnail = "null";
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps, "ddddddddd--")
-  }
-  componentDidMount(){
-    console.log("props------------",this.props)
-    let dir =  getWhatsappStatusDirectory() + '/'  + this.props.video_url;
-    let  self=this;
-    RNThumbnail.get(dir).then((result) => {
-      console.log(result.path); // thumbnail path
-      self.thumbnail =result.path
-      self.setState({thumbnail: result.path})
-    })
-    console.log("hh",this.thumbnail,this.state.thumbnail)
-  }
+  componentDidMount(){}
   render() {
+    let filePath = getFilePath(this.props.video_url);
     return (
             <List style={styles.gird} key={this.props.id+"list"}>
               <CardItem cardBody key={this.props.id+"ci"}>
                   <FastImage 
                     key={this.props.id+"img"} 
-                    source={{uri: this.thumbnail}} 
+                    source={{uri: filePath}} 
                     style={styles.FastImage}
                   >
                     <Button 
                       style={styles.centerButton}
                       key={this.props.id+"btn"} transparent 
-                      onPress={ () =>  this.props.navigate("VideoPreview",{thumbnail: this.thumbnail, url: getFilePath(this.props.video_url),shareUrl: this.props.video_url})}
+                      onPress={ () =>  this.props.navigate("VideoPreview",{thumbnail: filePath, url: filePath,shareUrl: this.props.video_url})}
                     >
                       <Icon key={this.props.id+"icon"} active name="md-play" style = {{color: 'white'}}/>
                     </Button>
@@ -52,12 +40,12 @@ export class VideoFeed extends Component {
                       style={styles.sharePanel}
                     >
                       <Left key={this.props.id+"left"}>
-                        <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.video_url)}>
+                        <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.video_url, false)}>
                           <Icon key={this.props.id+"icon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
                         </Button>
                       </Left>
                       <Right key={this.props.id+"right"}>
-                        <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.video_url)}>
+                        <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.video_url, false)}>
                           <Icon key={this.props.id+"ricon"} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
                         </Button>
                       </Right>

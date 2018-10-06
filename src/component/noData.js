@@ -19,9 +19,10 @@ export default class NoData extends Component {
           <Text style={styles.boldTextStyle}> 
             {this.props.message}
           </Text>
+          {this.props.whatsApp === undefined ?
           <Text style={styles.boldTextStyle}> 
-            Please view status on What's App.
-          </Text>
+            Please view status on What's App. 
+          </Text>: null}
         </View>
       </View>
     );
