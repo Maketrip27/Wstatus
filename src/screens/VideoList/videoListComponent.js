@@ -52,7 +52,7 @@ export default class App extends Component {
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                if(index !=0  && getRandomInt(1,7) === 3){
+                if(index !=0  && getRandomInt(1,15) === 8){
                   return(
                     <View>
                       <View/>
