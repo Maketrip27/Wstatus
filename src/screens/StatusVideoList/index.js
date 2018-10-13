@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Dimensions, RefreshControl, StatusBar} from 'react-native';
-import {Feed} from '../../component/feed.js';
+import {VideoFeed} from '../../component/videoFeed.js';
 import { Container, Content,Button,Icon,Header, Left, Body, Right,Title } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
 import { containerStyle} from '../../utils/helper.js';
-import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
 
 const {height, width} = Dimensions.get('window');
 
-export default class ImageListComponent extends Component {
+export default class StatusVideoList extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -38,8 +37,9 @@ export default class ImageListComponent extends Component {
         }).then((response) => response.json())
         .then((responseData) =>
         {
+            console.log(responseData)
             let onlyImage = responseData.graphql.hashtag.edge_hashtag_to_media.edges;
-            onlyImage = onlyImage.filter(node=> node.node.is_video === false)
+            onlyImage = onlyImage.filter(node=> node.node.is_video === true)
             this.setState({images: onlyImage, loading:false, refreshing: false })
         })
         .catch(()=> {
@@ -95,12 +95,12 @@ export default class ImageListComponent extends Component {
               contentContainerStyle = {containerStyle(this.state.images)}>
             {this.state.images.length > 0 ?
             <OptimizedFlatList
-                contentContainerStyle={styles.list}
+            contentContainerStyle={styles.list}
+            numColumns={3}
                 data={this.state.images}
-                numColumns={3}
                 keyExtractor={(item, index) => item.id}
                 renderItem={({item,index}) => {
-                    return  (<Feed for_key="Insta" image_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
+                    return  (<VideoFeed code = {item.node.shortcode} for_key="InstaVideo" video_url={item.node.display_url} disp_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
             }}/> :
             <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
         </Content>}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-   list: {
+  list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,

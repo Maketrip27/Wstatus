@@ -8,9 +8,6 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 const {height, width} = Dimensions.get('window');
-import {
-  AdMobBanner
-} from 'react-native-admob';
 import Ad from '../../config/ad';
 import { NavigationActions } from "react-navigation";
 
@@ -38,12 +35,6 @@ export default class InstaPicsComponent extends Component {
     return (
       <Container>
         <Content>
-        <AdMobBanner
-            adSize="fullBanner"
-            adUnitID={Ad.topQuote}
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.log(error)}
-          />
           <View style={styles.container}>
           <TouchableWithoutFeedback onPress={()=>this._navigate('InstaPreviewList',{title: 'Good Morning', tag: 'morningquotes', video: false})}>
             <Card style={styles.menuBox}>
@@ -93,13 +84,13 @@ export default class InstaPicsComponent extends Component {
               <Text style={styles.info}>Status of the Day</Text>
             </Card>
           </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={()=>this._navigate('StatusVideoList',{title: 'Video Status', tag: 'whatsappstatusvideo', video: false})}>
+            <Card style={styles.menuBox}>
+              <Image style={styles.icon} source={require("../../images/cinema.png")}/>
+              <Text style={styles.info}>Video</Text>
+            </Card>
+          </TouchableWithoutFeedback>
         </View>
-        <AdMobBanner
-          adSize="fullBanner"
-          adUnitID={Ad.bottomQuote}
-          testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => console.log(error)}
-        />
       </Content>
       </Container>
     );

@@ -4,9 +4,6 @@ import {VideoFeed} from '../../component/videoFeed.js';
 import { Container, Content,  Body,Left,Right,Header,Title } from 'native-base';
 import { containerStyle,getRandomInt,getRandomAdUnit } from '../../utils/helper.js';
 import NoData from '../../component/noData';
-import {
-  AdMobBanner
-} from 'react-native-admob'
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
@@ -41,42 +38,16 @@ export default class App extends Component {
       <Container>
       {(this.state.loading)? <Loading message="Please wait fetching video."/>:
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
-        <AdMobBanner
-            adSize="fullBanner"
-            adUnitID={Ad.topAd}
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.log(error)}
-        />
         {length > 0 ?
           <OptimizedFlatList
+              contentContainerStyle={styles.list}
+              numColumns={3}
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                if(index !=0  && getRandomInt(1,15) === 8){
-                  return(
-                    <View>
-                      <View/>
-                      <View style={{width:170, flex: 1}}>
-                        <AdMobBanner
-                          adSize="fullBanner"
-                          adUnitID={getRandomAdUnit(Ad.bannerAd)}
-                          testDevices={[AdMobBanner.simulatorId]}
-                          onAdFailedToLoad={error => console.log(error)}
-                        />
-                      </View>
-                      <VideoFeed video_url={item} id={index} videoStop={this.state.stopVideo} navigate={this._navigate}/>
-                    </View>)
-                }else{
-                  return  (<VideoFeed video_url={item} id={index} navigate={this._navigate}/>)
-                }
+                return  (<VideoFeed video_url={item} id={index} navigate={this._navigate} isUrl={false}/>)
           }}/>:
           <NoData message="No video status available."/>}
-          <AdMobBanner
-            adSize="fullBanner"
-            adUnitID={Ad.videoBottomAd}
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.log(error)}
-          />
        </Content>}
       </Container>
     );
@@ -100,9 +71,10 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-     list: {
-    justifyContent: 'center',
+  list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    flex: 1,
+    margin: 2
   }
 });

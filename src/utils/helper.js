@@ -43,10 +43,10 @@ export function getWhatsappStatusFiles() {
 		return status
 }
 
-export function downloadFiles(file_name, isUrl=false) {
+export function downloadFiles(file_name, isUrl=false, fileType=".png") {
 		// download file and confirm it is saved
 		if (isUrl === true){
-			downloadImageFromUrl(file_name)
+			downloadImageFromUrl(file_name, fileType)
 		}else{
 			RNFetchBlob.fs.cp(getFilePath(file_name), `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}`)
 					.then((exist) => {
@@ -88,7 +88,7 @@ export function getFilePath(file_name, isUrl = false){
 	return "file://" + getWhatsappStatusDirectory() + "/" + file_name
 }
 
-export const shareFile = (file_name, isUrl) => {
+export const shareFile = (file_name, isUrl, fileType="image/png") => {
 	if (isUrl){
 		RNFetchBlob
 		.fetch('GET', file_name, {
@@ -96,7 +96,7 @@ export const shareFile = (file_name, isUrl) => {
 		.then((res) => {
 		  let shareOptions ={
 			title: "Share",
-			url: "data:image/png;base64,"+res.base64(),
+			url: "data:"+fileType+";base64,"+res.base64(),
 			}
 			Share.open(shareOptions).then((response)=>{
 			}).catch((error)=>{
@@ -144,11 +144,11 @@ export const getFilenameFromUrl = (url) =>{
 	}
 	return "";
 }
-export const downloadImageFromUrl = (url) => {
+export const downloadImageFromUrl = (url, fileType=".png") => {
     let file_name = getFilenameFromUrl(url);
     RNFetchBlob
     .config({
-      path : `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}.png`
+      path : `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}${fileType}`
     })
     .fetch('GET', url, {
     })

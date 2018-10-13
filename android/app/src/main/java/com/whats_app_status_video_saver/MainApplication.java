@@ -5,7 +5,6 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
-import com.sbugert.rnadmob.RNAdMobPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
@@ -34,7 +33,6 @@ public class MainApplication extends Application implements ShareApplication,Rea
           new MainReactPackage(),
             new PhotoViewPackage(),
             new FastImageViewPackage(),
-            new RNAdMobPackage(),
             new LottiePackage(),
             new RNSharePackage(),
             new RNThumbnailPackage(),

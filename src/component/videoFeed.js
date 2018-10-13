@@ -19,7 +19,8 @@ export class VideoFeed extends Component {
 
   componentDidMount(){}
   render() {
-    let filePath = getFilePath(this.props.video_url);
+    const {isUrl, video_url, code} = this.props;
+    let filePath = getFilePath(video_url, isUrl);
     return (
             <List style={styles.gird} key={this.props.id+"list"}>
               <CardItem cardBody key={this.props.id+"ci"}>
@@ -31,25 +32,26 @@ export class VideoFeed extends Component {
                     <Button 
                       style={styles.centerButton}
                       key={this.props.id+"btn"} transparent 
-                      onPress={ () =>  this.props.navigate("VideoPreview",{thumbnail: filePath, url: filePath,shareUrl: this.props.video_url})}
+                      onPress={ () =>  this.props.navigate("VideoPreview",{code: code, thumbnail: filePath, url: filePath,shareUrl: this.props.video_url, isUrl: isUrl})}
                     >
-                      <Icon key={this.props.id+"icon"} active name="md-play" style = {{color: 'white'}}/>
+                      <Icon key={this.props.id+"icon"} active name="md-play" style = {{color: 'white',fontSize:23}}/>
                     </Button>
+                    {isUrl ? null :
                     <CardItem 
                       key={this.props.id+"CII"} 
                       style={styles.sharePanel}
                     >
                       <Left key={this.props.id+"left"}>
-                        <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.video_url, false)}>
+                        <Button key={this.props.id+"btn"} transparent onPress={ () =>  shareFile(this.props.video_url, isUrl, "video/mp4")}>
                           <Icon key={this.props.id+"icon"} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
                         </Button>
                       </Left>
                       <Right key={this.props.id+"right"}>
-                        <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.video_url, false)}>
+                        <Button key={this.props.id+"rbtn"} transparent onPress={ () =>  downloadFiles(this.props.video_url, isUrl, ".mp4")}>
                           <Icon key={this.props.id+"ricon"} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
                         </Button>
                       </Right>
-                    </CardItem>
+                    </CardItem>}
                   </FastImage>
               </CardItem>
           </List>
@@ -83,22 +85,29 @@ const styles = StyleSheet.create({
   },
   gird:{
     flex: 1,
-    margin: 5
-  },
+    marginLeft: 2,
+    marginRight:2,
+    marginBottom:2,
+    marginTop:2,
+    minWidth: width/3-5,
+    maxWidth: width/3-5,
+    height: 150,
+    maxHeight:150,
+    },
   centerButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     backgroundColor: 'rgba(0,0,0,0.60)',
-    borderRadius: 25,
+    borderRadius: 20,
     zIndex:5,
-    left: width/2 - 30
+    left: (width/3)/2-30
   },
   sharePanel:{ 
     backgroundColor: 'transparent', 
     height: 30,
-    width: width,
+    width:width/3 - 5,
     backgroundColor: 'rgba(0,0,0,0.5)',
     alignContent:'flex-end', 
     justifyContent: 'center', 
@@ -106,5 +115,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   },
-  FastImage:{height: width/2,width: width, flex: 1,alignItems: 'center',justifyContent: 'center'}
+  FastImage:{height: 150,width:width/3 - 5, flex: 1,alignItems: 'center',justifyContent: 'center'}
 });

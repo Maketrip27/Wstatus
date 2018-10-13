@@ -9,9 +9,6 @@ import {
 
 import { downloadFiles, shareFile,getRandomAdUnit } from '../../utils/helper.js';
 import {Icon} from 'native-base';
-import {
-  AdMobBanner
-} from 'react-native-admob'
 import Ad from '../../config/ad';
 import PhotoView from 'react-native-photo-view';
 
@@ -60,14 +57,8 @@ export default class ImageListComponent extends Component {
                 source={{uri: url}}
                 androidScaleType="center"
                 style={{width: width, height: height}} />
-              <View style={styles.bottomView}>
-                <AdMobBanner
-                    adSize="fullBanner"
-                    adUnitID={getRandomAdUnit(ad)}
-                    testDevices={[AdMobBanner.simulatorId]}
-                    onAdFailedToLoad={error => console.log(error)}
-                />
-              </View>
+              {/* <View style={styles.bottomView}>
+              </View> */}
           </View>
     )
   }

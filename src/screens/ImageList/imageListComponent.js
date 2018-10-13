@@ -5,9 +5,6 @@ import { Container, Content,Button,Icon } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
 import { containerStyle} from '../../utils/helper.js';
-import {
-  AdMobBanner
-} from 'react-native-admob'
 import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import SideMenu from '../../component/sideMenu.js';
@@ -75,12 +72,6 @@ export default class ImageListComponent extends Component {
          </Button> : null} */}
         <Content 
           contentContainerStyle = {containerStyle(this.props.images)}>
-          <AdMobBanner
-            adSize="fullBanner"
-            adUnitID={Ad.topAd}
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.log(error)}
-          />
         {this.props.images.length > 0 ?
           <OptimizedFlatList
               contentContainerStyle={styles.list}
@@ -88,33 +79,9 @@ export default class ImageListComponent extends Component {
               numColumns={3}
               keyExtractor={(item, index) => item.id}
               renderItem={({item,index}) => {
-                // if(Ad.totalAdShow >= this.totalAdd && (index+1)%2 === 1 && index !=0 && getRandomInt(1,3) === 2){
-                //   this.totalAdd +=1;
-                //   return(
-                //     <View>
-                //     <View/>
-                //     <View style={{width:170, flex: 1}}>
-                //     <AdMobBanner
-                //       adSize="fullBanner"
-                //       adUnitID={getRandomAdUnit(Ad.bannerAd)}
-                //       testDevices={[AdMobBanner.simulatorId]}
-                //       onAdFailedToLoad={error => console.log(error)}
-                //     />
-                //       </View>
-                //       <Feed image_url={item} id={index}/>
-                //     </View>
-                //     )
-                // }else{
                 return  (<Feed key={index+"whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate}/>)
-              // }
           }}/> :
           <NoData message="No status available."/>}
-          <AdMobBanner
-            adSize="fullBanner"
-            adUnitID={Ad.imageBottomAd}
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.log(error)}
-          />
        </Content>
       </Container>
       </DrawerLayoutAndroid>

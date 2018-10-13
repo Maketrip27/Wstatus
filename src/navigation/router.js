@@ -10,7 +10,7 @@ import CONFIG from '../config/config';
 import VideoPreview from '../screens/VideoPreview/index';
 import InstaPics from '../screens/InstaPics/instaPicsComponent';
 import InstaPreviewList from '../screens/InstaPreviewList/index';
-
+import StatusVideoList from '../screens/StatusVideoList/index';
 const Tabs = createBottomTabNavigator({
     Images: {
       screen: ImageList,
@@ -60,6 +60,7 @@ const NavigationStack = createStackNavigator({
     },
   Priview: {screen: Priview},
   InstaPreviewList: {screen: InstaPreviewList},
+  StatusVideoList: {screen: StatusVideoList},
   VideoPreview: {
     screen: VideoPreview,
     cardStyle: {
