@@ -1,6 +1,7 @@
 import RNFetchBlob from 'rn-fetch-blob';
 import { ToastAndroid } from 'react-native';
 import Share from 'react-native-share';
+import Config from '../config/config';
 
 const DIRECTORY_NAME = "WhatsAppStatus"
 const THUMBNAIL_DIR = "///storage/emulated/0/.thumb"
@@ -90,12 +91,15 @@ export function getFilePath(file_name, isUrl = false){
 
 export const shareFile = (file_name, isUrl, fileType="image/png") => {
 	if (isUrl){
+		ToastAndroid.show("Please wait fetching status..",ToastAndroid.LONG)
 		RNFetchBlob
 		.fetch('GET', file_name, {
 		})
 		.then((res) => {
-		  let shareOptions ={
+			ToastAndroid.show("Sending Status",ToastAndroid.SHORT)
+			let shareOptions ={
 			title: "Share",
+			message: "Share Status From :- "+Config.shareUrl,
 			url: "data:"+fileType+";base64,"+res.base64(),
 			}
 			Share.open(shareOptions).then((response)=>{
@@ -105,6 +109,7 @@ export const shareFile = (file_name, isUrl, fileType="image/png") => {
 		})
 	}else{
 		let shareOptions ={
+			message: "Share Status From :- "+Config.shareUrl,
 			title: "Share",
 			url: getFilePath(file_name),
 		}
@@ -145,16 +150,36 @@ export const getFilenameFromUrl = (url) =>{
 	return "";
 }
 export const downloadImageFromUrl = (url, fileType=".png") => {
-    let file_name = getFilenameFromUrl(url);
-    RNFetchBlob
+	let file_name = getFilenameFromUrl(url);
+	let mimeType = fileType === '.png' ? 'image/png' : 'video/mp4'
+    // RNFetchBlob
+    // .config({
+    //   path : `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}${fileType}`
+    // })
+    // .fetch('GET', url, {
+    // })
+    // .then((res) => {
+	//   ToastAndroid.show("File saved in WhatsAppStatus folder",ToastAndroid.SHORT)
+	// })
+	RNFetchBlob
     .config({
-      path : `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}${fileType}`
+        addAndroidDownloads : {
+            useDownloadManager : true, // <-- this is the only thing required
+            // Optional, override notification setting (default to true)
+            notification : true,
+            // Optional, but recommended since android DownloadManager will fail when
+            // the url does not contains a file extension, by default the mime type will be text/plain
+            mime : mimeType,
+			description : 'File downloaded by download manager.',
+			path: `${getDownloadDirectory()}/${DIRECTORY_NAME}/${file_name}${fileType}`
+        }
     })
-    .fetch('GET', url, {
-    })
-    .then((res) => {
+    .fetch('GET', url)
+    .then((resp) => {
+	  // the path of downloaded file
 	  ToastAndroid.show("File saved in WhatsAppStatus folder",ToastAndroid.SHORT)
-	})
+    //   resp.path()
+    })
 }
 export const shareThisApp = (url) =>{
 	let shareOptions ={

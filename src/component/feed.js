@@ -18,7 +18,7 @@ export class Feed extends Component {
                 cardBody 
                 key={this.props.id+"ci"+this.props.for_key} 
                 onPress={()=>this.props.navigate("Priview",{isUrl: this.props.isUrl, shareUrl: this.props.image_url, url: getFilePath(this.props.image_url,  this.props.isUrl)})}>
-                  <FastImage key={this.props.id+"img"+this.props.for_key} source={{uri: getFilePath(this.props.image_url, this.props.isUrl)}} style={{height: 150,width:width/3 - 5, flex: 1, justifyContent:'flex-end'}}>
+                  <FastImage key={this.props.id+"img"+this.props.for_key} source={{uri: getFilePath(this.props.image_url, this.props.isUrl)}} style={{height: 150,width:width/3 - 5, flex: 1, justifyContent:'flex-end',backgroundColor: '#e3f7f5'}}>
                   <CardItem key={this.props.id+"CII"+this.props.for_key} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"left"+this.props.for_key}>
                       <Button key={this.props.id+"btn"+this.props.for_key} transparent onPress={ () =>  shareFile(this.props.image_url, this.props.isUrl)}>
