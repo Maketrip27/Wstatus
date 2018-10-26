@@ -5,11 +5,12 @@ import { Container, Content,Button,Icon,Header, Left, Body, Right,Title } from '
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
 import { containerStyle} from '../../utils/helper.js';
-import Ad from '../../config/ad';
+// import Ad from '../../config/ad';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
-
+import AdMopub from '../../component/AdMopub';
+import Ad from '../../config/mopubAds';
 const {height, width} = Dimensions.get('window');
 
 export default class ImageListComponent extends Component {
@@ -93,6 +94,7 @@ export default class ImageListComponent extends Component {
                 />
               }
               contentContainerStyle = {containerStyle(this.state.images)}>
+              <AdMopub unitId={Ad.instaPics}/>
             {this.state.images.length > 0 ?
             <OptimizedFlatList
                 contentContainerStyle={styles.list}
@@ -103,6 +105,7 @@ export default class ImageListComponent extends Component {
                     return  (<Feed for_key="Insta" image_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
             }}/> :
             <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
+            <AdMopub unitId={Ad.instaPics}/>
         </Content>}
       </Container>
     );

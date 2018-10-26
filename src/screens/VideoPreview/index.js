@@ -10,10 +10,11 @@ import {
 
 import { downloadFiles, shareFile,getFilePath,getRandomAdUnit,getRandomInt } from '../../utils/helper.js';
 import {Icon} from 'native-base';
-import Ad from '../../config/ad';
+// import Ad from '../../config/ad';
 import VideoPlayer from 'react-native-video-player';
 import LottieView from 'lottie-react-native';
-
+import AdMopub from '../../component/AdMopub';
+import Ad from '../../config/mopubAds';
 const { width, height} = Dimensions.get('window');
 
 export default class ImageListComponent extends Component {
@@ -113,8 +114,9 @@ export default class ImageListComponent extends Component {
                       console.log('VideoPlayer onLoad, ', event);
                    }}
                 />}
-                {/* <View style={styles.bottomView}>
-                </View> */}
+                <View style={styles.bottomView}>
+                  <AdMopub unitId={Ad.videoPreview}/>
+                </View>
             </View>
     )
   }

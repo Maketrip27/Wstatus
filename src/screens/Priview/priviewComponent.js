@@ -9,9 +9,10 @@ import {
 
 import { downloadFiles, shareFile,getRandomAdUnit } from '../../utils/helper.js';
 import {Icon} from 'native-base';
-import Ad from '../../config/ad';
+// import Ad from '../../config/ad';
 import PhotoView from 'react-native-photo-view';
-
+import AdMopub from '../../component/AdMopub';
+import Ad from '../../config/mopubAds';
 const { width, height} = Dimensions.get('window');
 export default class ImageListComponent extends Component {
   constructor(props){
@@ -57,8 +58,9 @@ export default class ImageListComponent extends Component {
                 source={{uri: url}}
                 androidScaleType="center"
                 style={{width: width, height: height}} />
-              {/* <View style={styles.bottomView}>
-              </View> */}
+               <View style={styles.bottomView}>
+                 <AdMopub unitId={Ad.imagePreview}/>
+              </View>
           </View>
     )
   }

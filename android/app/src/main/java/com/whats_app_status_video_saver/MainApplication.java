@@ -3,6 +3,7 @@ package com.whats_app_status_video_saver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import camp.kuznetsov.rn.mopub.RNMoPubPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ShareApplication,Rea
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNMoPubPackage(),
             new PhotoViewPackage(),
             new FastImageViewPackage(),
             new LottiePackage(),

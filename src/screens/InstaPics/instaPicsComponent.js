@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container,Content, Text,Card,CardItem } from 'native-base';
+import { Container,Content, Text,Card,CardItem,Icon } from 'native-base';
 import {
   StyleSheet,
   View,
@@ -8,22 +8,13 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 const { height, width } = Dimensions.get('window');
-import Ad from '../../config/ad';
+// import Ad from '../../config/ad';
 import Config from '../../config/config';
 
 import { NavigationActions } from "react-navigation";
+import AdMopub from '../../component/AdMopub';
+import Ad from '../../config/mopubAds';
 
-const Quotes = [
-  { name: "Good Morning", image: "../../images/sunrise.png", tag: "" },
-  { name: "Good Evening", image: "../../images/evening.png", tag: "" },
-  { name: "Good Night", image: "../../images/sky.png", tag: "" },
-  { name: "Inpsirational", image: "../../images/lightbulb.png", tag: "" },
-  { name: "Motivational", image: "../../images/motivate.png", tag: "" },
-  { name: "Life Quotes", image: "../../images/pulse.png", tag: "" },
-  { name: "Health Tips", image: "../../images/drug.png", tag: "" },
-  { name: "Love Quotes", image: "../../images/in-love.png", tag: "" },
-  { name: "Entertainement", image: "../../images/cinema.png", tag: "" },
-]
 export default class InstaPicsComponent extends Component {
   _navigate = (name, params) => {
     const navigate = NavigationActions.navigate({
@@ -37,8 +28,9 @@ export default class InstaPicsComponent extends Component {
     return (
       <View>
       <Card >
-        <CardItem header bordered >
-          <Text style={{color:  Config.themeColor, fontSize:18}}>Image Status</Text>
+        <CardItem header bordered style={{paddingLeft: 0, height: 18}}>
+          <Icon style={{color: Config.themeColor, paddingLeft:5}} name="md-images" />
+          <Text style={{color: Config.themeColor,fontSize:18}}>Image Status</Text>
         </CardItem>
         <View style={styles.container}>
           <TouchableWithoutFeedback onPress={() => this._navigate('InstaPreviewList', { title: 'Good Morning', tag: 'morningquotes', video: false })}>
@@ -97,8 +89,9 @@ export default class InstaPicsComponent extends Component {
           </TouchableWithoutFeedback>
       </View>
     </Card>
-    <Card >
-        <CardItem header bordered>
+    <Card style={{borderRadius:5}}>
+        <CardItem header bordered style={{paddingLeft: 0, height: 18}}>
+          <Icon style={{color: Config.themeColor, paddingLeft:5}} name="md-videocam" />
           <Text style={{color: Config.themeColor, fontSize:18}}>Video Status</Text>
         </CardItem>
         <View style={styles.container}>
@@ -147,7 +140,9 @@ export default class InstaPicsComponent extends Component {
     return (
       <Container>
           <Content>
+          <AdMopub unitId={Ad.dailyStatus}/>
             {this.imageStatus()}
+            <AdMopub unitId={Ad.dailyStatus}/>
           </Content>
       </Container>
     );
@@ -161,8 +156,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   menuBox: {
-    backgroundColor: 'transparent',
-    backgroundColor: "rgba(0,0,0,0.9)",
     width: width / 3 - 9,
     height: 120,
     alignItems: 'center',
@@ -170,7 +163,9 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 3,
+    borderRadius:5
+
   },
   icon: {
     width: 64,
@@ -179,6 +174,7 @@ const styles = StyleSheet.create({
   info: {
     top: 7,
     fontSize: 14,
-    color: "#ffffff",
+    color: "black",
+    fontWeight: 'bold'
   }
 });

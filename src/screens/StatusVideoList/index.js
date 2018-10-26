@@ -8,7 +8,8 @@ import { containerStyle} from '../../utils/helper.js';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
-
+import AdMopub from '../../component/AdMopub';
+import Ad from '../../config/mopubAds';
 const {height, width} = Dimensions.get('window');
 
 export default class StatusVideoList extends Component {
@@ -93,6 +94,8 @@ export default class StatusVideoList extends Component {
                 />
               }
               contentContainerStyle = {containerStyle(this.state.images)}>
+            <AdMopub unitId={Ad.instaVideo}/>
+
             {this.state.images.length > 0 ?
             <OptimizedFlatList
             contentContainerStyle={styles.list}
@@ -103,6 +106,7 @@ export default class StatusVideoList extends Component {
                     return  (<VideoFeed code = {item.node.shortcode} for_key="InstaVideo" video_url={item.node.display_url} disp_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
             }}/> :
             <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
+            <AdMopub unitId={Ad.instaVideo}/>
         </Content>}
       </Container>
     );
