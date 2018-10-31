@@ -99,7 +99,7 @@ export const shareFile = (file_name, isUrl, fileType="image/png") => {
 			ToastAndroid.show("Sending Status",ToastAndroid.SHORT)
 			let shareOptions ={
 			title: "Share",
-			message: "Share Status From :- "+Config.shareUrl,
+			message: "Download More : "+Config.shareUrl,
 			url: "data:"+fileType+";base64,"+res.base64(),
 			}
 			Share.open(shareOptions).then((response)=>{
@@ -109,7 +109,7 @@ export const shareFile = (file_name, isUrl, fileType="image/png") => {
 		})
 	}else{
 		let shareOptions ={
-			message: "Share Status From :- "+Config.shareUrl,
+			message: "Download More : "+Config.shareUrl,
 			title: "Share",
 			url: getFilePath(file_name),
 		}

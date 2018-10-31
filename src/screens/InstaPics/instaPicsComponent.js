@@ -142,7 +142,7 @@ export default class InstaPicsComponent extends Component {
           <Content>
           <AdMopub unitId={Ad.dailyStatus}/>
             {this.imageStatus()}
-            <AdMopub unitId={Ad.dailyStatus}/>
+            {/* <AdMopub unitId={Ad.dailyStatus}/> */}
           </Content>
       </Container>
     );

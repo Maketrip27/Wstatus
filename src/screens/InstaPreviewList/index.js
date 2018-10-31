@@ -105,7 +105,7 @@ export default class ImageListComponent extends Component {
                     return  (<Feed for_key="Insta" image_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
             }}/> :
             <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
-            <AdMopub unitId={Ad.instaPics}/>
+            {/* <AdMopub unitId={Ad.instaPics}/> */}
         </Content>}
       </Container>
     );

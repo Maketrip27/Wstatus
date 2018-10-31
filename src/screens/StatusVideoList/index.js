@@ -106,7 +106,7 @@ export default class StatusVideoList extends Component {
                     return  (<VideoFeed code = {item.node.shortcode} for_key="InstaVideo" video_url={item.node.display_url} disp_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true}/>)
             }}/> :
             <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
-            <AdMopub unitId={Ad.instaVideo}/>
+            {/* <AdMopub unitId={Ad.instaVideo}/> */}
         </Content>}
       </Container>
     );

@@ -69,7 +69,7 @@ export default class App extends Component {
                 return  (<VideoFeed video_url={item} id={index} navigate={this._navigate} isUrl={false}/>)
           }}/>:
           <NoData message="No video status available."/>}
-       <AdMopub unitId={Ad.videoList}/>
+       {/* <AdMopub unitId={Ad.videoList}/> */}
        </Content>}
       </Container>
     );

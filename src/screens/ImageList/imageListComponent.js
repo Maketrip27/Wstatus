@@ -105,7 +105,7 @@ export default class ImageListComponent extends Component {
                   return (<Feed key={index + "whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate} />)
                 }} /> :
               <NoData message="No status available." />}
-            <AdMopub unitId={Ad.imageList} />
+            {/* <AdMopub unitId={Ad.imageList} /> */}
           </Content>
         </Container>
       </DrawerLayoutAndroid>

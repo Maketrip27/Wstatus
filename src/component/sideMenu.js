@@ -53,7 +53,7 @@ export default class SideMenu extends Component {
                 <Icon name="md-star-half" style={{color:  CONFIG.themeColor}}/>
               </Left>
               <Body>
-              <Text >Rate this app</Text>
+              <Text >Rate Us</Text>
               </Body>
               <Right/>
             </ListItem>
