@@ -14,7 +14,8 @@ import PhotoView from 'react-native-photo-view';
 import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 const { width, height} = Dimensions.get('window');
-export default class ImageListComponent extends Component {
+
+export default class PreviewImageListComponent extends Component {
   constructor(props){
     super(props);
   }

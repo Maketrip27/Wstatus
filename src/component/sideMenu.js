@@ -35,7 +35,7 @@ export default class SideMenu extends Component {
             <View  style={{flex:1,justifyContent:'center',alignItems:'center', flexDirection:'column', backgroundColor:CONFIG.themeColor, height:150, padding:25}}>
               <Thumbnail medium  source={require('../images/ic_launcher.png')} style={{height: 80,width:80}}/>
               <View style={{marginLeft: 15, marginTop:10}}>
-              <Text style={{color: CONFIG.textColor, fontSize:15}}>Instant Status Saver</Text>
+              <Text style={{color: CONFIG.textColor, fontSize:15}}>Share Status</Text>
               </View>
             </View>
           <List>

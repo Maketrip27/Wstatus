@@ -17,7 +17,7 @@ import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 const { width, height} = Dimensions.get('window');
 
-export default class ImageListComponent extends Component {
+export default class VideoImageListComponent extends Component {
   constructor(props){
     super(props);
     this.state = {

@@ -14,6 +14,7 @@ import configureStore from './src/store/store'
 import CONFIG from './src/config/config';
 
 const { store } = configureStore();
+console.disableYellowBox = true;
 
 export default class App extends Component{
   constructor() {

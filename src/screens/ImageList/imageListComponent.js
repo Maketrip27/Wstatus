@@ -59,10 +59,10 @@ export default class ImageListComponent extends Component {
     this._listViewOffset = currentOffset
   }
 
-  renderCard = (item) => {
+  renderCard = (item, index) => {
     let { title, tag, video, image } = item;
     return (
-      <TouchableWithoutFeedback onPress={() => this._navigate('InstaPreviewList', { title: title, tag: tag, video: video })}>
+      <TouchableWithoutFeedback key = {"quote"+index} onPress={() => this._navigate('InstaPreviewList', { title: title, tag: tag, video: video })}>
         <Card style={styles.menuBox}>
           <Image style={styles.icon} source={image} />
           <Text style={styles.info}>{title}</Text>
@@ -82,8 +82,8 @@ export default class ImageListComponent extends Component {
         <Container>
           <View style={{ height: 95 }}>
             <ScrollView style={{ flex: 1 }} horizontal={true} showsHorizontalScrollIndicator={false}>
-              {InstatStatus.imageStatus.map(item => {
-                return this.renderCard(item)
+              {InstatStatus.imageStatus.map((item, index) => {
+                return this.renderCard(item, index)
               })}
             </ScrollView>
           </View>
@@ -94,7 +94,7 @@ export default class ImageListComponent extends Component {
          </Button> : null} */}
           <Content
             contentContainerStyle={containerStyle(this.props.images)}>
-            <AdMopub unitId={Ad.imageList} />
+            {/* <AdMopub unitId={Ad.imageList} /> */}
             {this.props.images.length > 0 ?
               <OptimizedFlatList
                 contentContainerStyle={styles.list}
@@ -105,7 +105,7 @@ export default class ImageListComponent extends Component {
                   return (<Feed key={index + "whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate} />)
                 }} /> :
               <NoData message="No status available." />}
-            {/* <AdMopub unitId={Ad.imageList} /> */}
+            <AdMopub unitId={Ad.imageList} />
           </Content>
         </Container>
       </DrawerLayoutAndroid>

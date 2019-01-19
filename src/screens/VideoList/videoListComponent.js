@@ -34,10 +34,10 @@ export default class App extends Component {
     });
     this.props.navigation.dispatch(navigate);
   }
-  renderCard = (item) => {
+  renderCard = (item, index) => {
     let {title, tag, video, image} = item;
     return (
-      <TouchableWithoutFeedback onPress={() => this._navigate('StatusVideoList', { title: title, tag: tag, video: video })}>
+      <TouchableWithoutFeedback key = {"video-st"+index}onPress={() => this._navigate('StatusVideoList', { title: title, tag: tag, video: video })}>
             <Card style={styles.menuBox}>
               <Image style={styles.icon} source={image} />
               <Text style={styles.info}>{title}</Text>
@@ -51,14 +51,14 @@ export default class App extends Component {
       <Container>
          <View style={{ height: 95 }}>
          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              {InstatStatus.videoStatus.map(item=>{
-                return this.renderCard(item) 
+              {InstatStatus.videoStatus.map((item, index)=>{
+                return this.renderCard(item, index) 
               })}
             </ScrollView>
          </View>
       {(this.state.loading)? <Loading message="Please wait fetching video."/>:
         <Content contentContainerStyle = {containerStyle(this.props.videos)}>
-        <AdMopub unitId={Ad.videoList}/>
+        {/* <AdMopub unitId={Ad.videoList}/> */}
         {length > 0 ?
           <OptimizedFlatList
               contentContainerStyle={styles.list}
@@ -69,7 +69,7 @@ export default class App extends Component {
                 return  (<VideoFeed video_url={item} id={index} navigate={this._navigate} isUrl={false}/>)
           }}/>:
           <NoData message="No video status available."/>}
-       {/* <AdMopub unitId={Ad.videoList}/> */}
+       <AdMopub unitId={Ad.videoList}/>
        </Content>}
       </Container>
     );
