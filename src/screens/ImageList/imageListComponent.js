@@ -11,6 +11,7 @@ import SideMenu from '../../component/sideMenu.js';
 import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 import InstatStatus from '../../config/instaStatus';
+import _ from 'lodash';
 
 const { height, width } = Dimensions.get('window');
 
@@ -80,9 +81,9 @@ export default class ImageListComponent extends Component {
         }}
         renderNavigationView={() => <SideMenu />}>
         <Container>
-          <View style={{ height: 95 }}>
+          <View style={{ height: 75 }}>
             <ScrollView style={{ flex: 1 }} horizontal={true} showsHorizontalScrollIndicator={false}>
-              {InstatStatus.imageStatus.map((item, index) => {
+              {_.shuffle(InstatStatus.imageStatus).map((item, index) => {
                 return this.renderCard(item, index)
               })}
             </ScrollView>
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,
-    margin: 2
+    margin: 1
   },
   floatButton: {
     width: 120,
@@ -148,8 +149,8 @@ const styles = StyleSheet.create({
     zIndex: 1
   },
   menuBox: {
-    width: 90,
-    height: 90,
+    width: 70,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 2,
@@ -159,12 +160,12 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   icon: {
-    width: 64,
-    height: 64,
+    width: 40,
+    height: 40,
   },
   info: {
     top: 2,
-    fontSize: 12,
+    fontSize: 10,
     color: "black",
     fontWeight: 'bold'
   }

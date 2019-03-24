@@ -14,10 +14,13 @@ module.exports = {
         { image: require("../images/drug.png"), title: 'Health Tips', tag: 'healthtip', video: false },
     ],
     videoStatus: [
-        { image: require("../images/tongue-out.png"), title: 'Gujarati', tag: 'gujarati_songs', video: false },
+        { image: require("../images/tiktok.png"), title: 'TikTok', tag: 'tiktokvideos', video: false }, 
+        { image: require("../images/popcorn.png"), title: 'Movie Clip', tag: 'movieclips', video: false }, 
+        { image: require("../images/dance_style.png"), title: 'Dance', tag: 'dancevideo', video: false }, 
+        { image: require("../images/diy.png"), title: 'DIY', tag: 'diyvideos', video: false },
         { image: require("../images/dance.png"), title: 'Hindi', tag: 'hindisongs', video: false },
         { image: require("../images/dancing.png"), title: 'Punjabi', tag: 'punjabisong', video: false },
-        { image: require("../images/drum.png"), title: 'Inidan', tag: 'indiansong', video: false },
+        { image: require("../images/drum.png"), title: 'Indian', tag: 'indiansong', video: false },
         { image: require("../images/lyrics.png"), title: 'Lyrical', tag: 'lyricalvideo', video: false },
         { image: require("../images/buddha.png"), title: 'Bhajan', tag: 'bhajan', video: false },
         { image: require("../images/love-song.png"), title: 'Love Songs', tag: 'whatsappstatusvideo', video: false },
@@ -25,7 +28,7 @@ module.exports = {
         { image: require("../images/sad.png"), title: 'Sad Songs', tag: 'sadsong', video: false },
         { image: require("../images/creative.png"), title: 'Creative', tag: 'creativevideo', video: false },
         { image: require("../images/comedy.png"), title: 'Comedy', tag: 'comedyvideos', video: false  },
-        { image: require("../images/recipe.png"), title: 'Recipes', tag: 'recipevideo', video: false }, 
+        { image: require("../images/recipe.png"), title: 'Recipes', tag: 'recipevideo', video: false },
     ]
 }
 

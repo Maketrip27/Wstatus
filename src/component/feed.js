@@ -4,14 +4,15 @@ import {
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
-import { CardItem,Button, Left,Right,Icon,List} from 'native-base';
+import { CardItem,Button, Left,Right,Icon,List, Card} from 'native-base';
 import {downloadFiles, shareFile,getFilePath } from '../utils/helper.js';
 import FastImage from 'react-native-fast-image'
 
 const {height, width} = Dimensions.get('window');
 export class Feed extends Component {
-  render() {
+  render() {  
     return (
+            <Card style={{marginTop:2,marginBottom:2}}>
             <List style={styles.gird} key={this.props.id+"list"}>
               <TouchableWithoutFeedback 
                 button 
@@ -22,18 +23,19 @@ export class Feed extends Component {
                   <CardItem key={this.props.id+"CII"+this.props.for_key} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <Left key={this.props.id+"left"+this.props.for_key}>
                       <Button key={this.props.id+"btn"+this.props.for_key} transparent onPress={ () =>  shareFile(this.props.image_url, this.props.isUrl)}>
-                        <Icon key={this.props.id+"icon"+this.props.for_key} active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+                        <Icon key={this.props.id+"icon"+this.props.for_key} active name="md-share-alt" style = {{color: 'white', fontSize: 18}}/>
                       </Button>
                     </Left>
                     <Right key={this.props.id+"right"+this.props.for_key}>
                       <Button key={this.props.id+"rbtn"+this.props.for_key} transparent onPress={ () =>  downloadFiles(this.props.image_url, this.props.isUrl)}>
-                        <Icon key={this.props.id+"ricon"+this.props.for_key} active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+                        <Icon key={this.props.id+"ricon"+this.props.for_key} active name="md-download" style = {{color: 'white', fontSize: 18}}/>
                       </Button>
                     </Right>
                   </CardItem>
                   </FastImage>
               </TouchableWithoutFeedback>
             </List>
+            </Card>
     );
   }
 }
@@ -63,13 +65,13 @@ const styles = StyleSheet.create({
   },
   gird:{
     flex: 1,
-    marginLeft: 2,
-    marginRight:2,
-    marginBottom:2,
-    marginTop:2,
+    marginLeft: 1,
+    marginRight:1,
+    marginBottom:1,
+    marginTop:1,
     minWidth: width/3-5,
     maxWidth: width/3-5,
     height: 150,
-    maxHeight:150,
-    }
+    maxHeight:150
+  }
 });

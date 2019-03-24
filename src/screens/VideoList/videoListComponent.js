@@ -11,7 +11,7 @@ import { NavigationActions } from "react-navigation";
 import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 import InstatStatus from '../../config/instaStatus';
-
+import _ from 'lodash';
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -49,9 +49,9 @@ export default class App extends Component {
     let length = this.props.videos.length;
     return (
       <Container>
-         <View style={{ height: 95 }}>
+         <View style={{ height: 75 }}>
          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              {InstatStatus.videoStatus.map((item, index)=>{
+              {_.shuffle(InstatStatus.videoStatus).map((item, index)=>{
                 return this.renderCard(item, index) 
               })}
             </ScrollView>
@@ -100,23 +100,23 @@ const styles = StyleSheet.create({
     margin: 2
   },
   menuBox: {
-    width: 90,
-    height: 90,
+    minWidth: 70,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 2,
     marginRight: 2,
     marginTop: 2,
     marginBottom: 2,
-    borderRadius:5
+    borderRadius: 5
   },
   icon: {
-    width: 64,
-    height: 64,
+    width: 40,
+    height: 40,
   },
   info: {
     top: 2,
-    fontSize: 12,
+    fontSize: 10,
     color: "black",
     fontWeight: 'bold'
   }

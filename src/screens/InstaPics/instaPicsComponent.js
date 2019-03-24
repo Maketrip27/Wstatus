@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   menuBox: {
     width: width / 3 - 9,
-    height: 120,
+    height: 80,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 3,
@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
 
   },
   icon: {
-    width: 64,
-    height: 64,
+    width: 40,
+    height: 40,
   },
   info: {
-    top: 7,
-    fontSize: 14,
+    top: 5,
+    fontSize: 12,
     color: "black",
     fontWeight: 'bold'
   }
