@@ -12,6 +12,8 @@ import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 import InstatStatus from '../../config/instaStatus';
 import _ from 'lodash';
+import WithContainer from '../../component/Container';
+import { MENU, HEART, BACK_ARROW } from "../../config/icons";
 
 const { height, width } = Dimensions.get('window');
 
@@ -19,18 +21,18 @@ export default class ImageListComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActionButtonVisible: true
+      isActionButtonVisible: true,
+      loading: true
     }
     this.totalAdd = 1;
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
+    // AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
-    BackHandler.exitApp()
+    // AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   _handleAppStateChange = (nextAppState) => {
@@ -63,7 +65,7 @@ export default class ImageListComponent extends Component {
   renderCard = (item, index) => {
     let { title, tag, video, image } = item;
     return (
-      <TouchableWithoutFeedback key = {"quote"+index} onPress={() => this._navigate('InstaPreviewList', { title: title, tag: tag, video: video })}>
+      <TouchableWithoutFeedback key={"quote" + index} onPress={() => this._navigate('InstaPreviewList', { title: title, tag: tag, video: video })}>
         <Card style={styles.menuBox}>
           <Image style={styles.icon} source={image} />
           <Text style={styles.info}>{title}</Text>
@@ -72,8 +74,10 @@ export default class ImageListComponent extends Component {
     )
   }
   render() {
+    const { navigation } = this.props;
     return (
-      <DrawerLayoutAndroid
+      <React.Fragment>
+        {/* <DrawerLayoutAndroid
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         ref={(ref) => {
@@ -88,14 +92,8 @@ export default class ImageListComponent extends Component {
               })}
             </ScrollView>
           </View>
-          {/* {(this.props.images.length > 0) ? 
-        <Button style={styles.floatButton} onPress = {()=>this._navigate("Priview")}>
-           <Icon name='ios-expand' style={{fontSize:20,fontWeight:'bold'}}/>
-           <Text style={{right:8,color:"#fff",fontWeight:'bold'}}>Full Screen</Text>
-         </Button> : null} */}
           <Content
             contentContainerStyle={containerStyle(this.props.images)}>
-            {/* <AdMopub unitId={Ad.imageList} /> */}
             {this.props.images.length > 0 ?
               <OptimizedFlatList
                 contentContainerStyle={styles.list}
@@ -109,7 +107,30 @@ export default class ImageListComponent extends Component {
             <AdMopub unitId={Ad.imageList} />
           </Content>
         </Container>
-      </DrawerLayoutAndroid>
+      </DrawerLayoutAndroid> */}
+        <WithContainer
+          title={"Whats App Image Status"}
+          leftClick={() => navigation && navigation.goBack()}
+          leftIcon={BACK_ARROW}
+          contentStyle={{ padding: 0, margin: 0, backgroundColor: "white" }}
+          content={true}
+        >
+          {this.props.images.length > 0 ?
+            <OptimizedFlatList
+              contentContainerStyle={styles.list}
+              data={this.props.images}
+              numColumns={3}
+              keyExtractor={(item, index) => item.id}
+              onEndReached={() => console.log("end reac")}
+              onEndThreshold={1}
+              initialNumToRender={10}
+
+              renderItem={({ item, index }) => {
+                return (<Feed key={index + "whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate} />)
+              }} /> : <NoData message="No status available." />}
+          <AdMopub unitId={Ad.imageList} />
+        </WithContainer>
+      </React.Fragment>
     );
   }
 }

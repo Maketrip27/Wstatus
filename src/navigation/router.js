@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator, createStackNavigator,createBottomTabNavigator } from 'react-navigation';
+import { TabNavigator, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 import Splash from '../screens/Splash/'
 import AppIntro from '../screens/AppIntro/'
@@ -11,29 +11,31 @@ import VideoPreview from '../screens/VideoPreview/index';
 import InstaPics from '../screens/InstaPics/instaPicsComponent';
 import InstaPreviewList from '../screens/InstaPreviewList/index';
 import StatusVideoList from '../screens/StatusVideoList/index';
+import Home from "../screens/Home/index";
+
 const Tabs = createBottomTabNavigator({
-    Images: {
-      screen: ImageList,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (<Icon name='md-image' style={[{color: tintColor}]}/>
-        )
-      }
-    },
-    Videos: {
-      screen: VideoList,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (<Icon name='md-videocam' style={[{color: tintColor}]}/>
-        )
-      }
-    },
-    'Daily Status': {
-      screen: InstaPics,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (<Icon name='md-apps' style={[{color: tintColor}]}/>
-        )
-      }
+  Images: {
+    screen: ImageList,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-image' style={[{ color: tintColor }]} />
+      )
     }
-  },{
+  },
+  Videos: {
+    screen: VideoList,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-videocam' style={[{ color: tintColor }]} />
+      )
+    }
+  },
+  'Daily Status': {
+    screen: InstaPics,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-apps' style={[{ color: tintColor }]} />
+      )
+    }
+  }
+}, {
   backBehavior: 'initialRoute',
   tabBarPosition: 'bottom',
   tabBarOptions: {
@@ -41,32 +43,54 @@ const Tabs = createBottomTabNavigator({
     activeBackgroundColor: CONFIG.themeColor,
     inactiveBackgroundColor: CONFIG.themeColor,
     inactiveTintColor: '#d7e5e3',
-    showIcon:true,
-    labelStyle: {fontSize: 14}
+    showIcon: true,
+    labelStyle: { fontSize: 14 }
 
   },
 });
 
 const NavigationStack = createStackNavigator({
-  Splash: {screen: Splash},
-  AppIntro: {screen: AppIntro},
+  Splash: { screen: Splash },
+  AppIntro: { screen: AppIntro },
+  Images: {
+    screen: ImageList,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-image' style={[{ color: tintColor }]} />
+      )
+    }
+  },
+  Videos: {
+    screen: VideoList,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-videocam' style={[{ color: tintColor }]} />
+      )
+    }
+  },
+  'Daily Status': {
+    screen: InstaPics,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='md-apps' style={[{ color: tintColor }]} />
+      )
+    }
+  },
   Home: {
-      screen: Tabs,
-      navigationOptions: {
-        cardStack: {
-          gesturesEnabled: false,
-        }
+    screen: Home,
+    navigationOptions: {
+      cardStack: {
+        gesturesEnabled: false,
       }
-    },
-  Priview: {screen: Priview},
-  InstaPreviewList: {screen: InstaPreviewList},
-  StatusVideoList: {screen: StatusVideoList},
+    }
+  },
+  Priview: { screen: Priview },
+  InstaPreviewList: { screen: InstaPreviewList },
+  StatusVideoList: { screen: StatusVideoList },
   VideoPreview: {
     screen: VideoPreview,
     cardStyle: {
       backgroundColor: 'rgba(0,0,0,0.5)',
-    }}
-  },
+    }
+  }
+},
   {
     initialRouteName: 'Splash',
     headerMode: 'none',
@@ -82,6 +106,6 @@ const NavigationStack = createStackNavigator({
     cardStyle: {
       backgroundColor: "#ffffff"
     }
-});
+  });
 
 export default NavigationStack;
