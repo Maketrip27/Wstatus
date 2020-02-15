@@ -1,0 +1,34 @@
+module.exports = {
+    imageStatus: [
+        { image: require("../images/open-book.png"), title: 'Hindi Shayri', tag: 'hindishayri', video: false },
+        { image: require("../images/namaste.png"), title: 'Hindi Quote', tag: 'hindiquote', video: false },
+        { image: require("../images/wink.png"), title: 'Gujarati', tag: 'gujaratiquotes', video: false },
+        { image: require("../images/in-love.png"), title: 'Love Quotes', tag: 'lovequotes', video: false },
+        { image: require("../images/missyou.png"), title: 'Miss You', tag: 'missyouquotes', video: false  },
+        { image: require("../images/broken-heart.png"), title: 'Broken Heart', tag: 'brokenheartquotes', video: false },
+        { image: require("../images/sunrise.png"), title: 'Good Morning', tag: 'morningquotes', video: false},
+        { image: require("../images/sky.png"),  title: 'Good Night', tag: 'goodnightquotes', video: false } ,
+        { image: require("../images/lightbulb.png"), title: 'Inspirational', tag: 'inspirationalquote', video: false },
+        { image: require("../images/motivate.png"), title: 'Motivational', tag: 'motivationalspeaker', video: false },
+        { image: require("../images/pulse.png"), title: 'Life Quotes', tag: 'quotesaboutlife', video: false },
+        { image: require("../images/drug.png"), title: 'Health Tips', tag: 'healthtip', video: false },
+    ],
+    videoStatus: [
+        { image: require("../images/tiktok.png"), title: 'TikTok', tag: 'tiktokvideos', video: false }, 
+        { image: require("../images/popcorn.png"), title: 'Movie Clip', tag: 'movieclips', video: false }, 
+        { image: require("../images/dance_style.png"), title: 'Dance', tag: 'dancevideo', video: false }, 
+        { image: require("../images/diy.png"), title: 'DIY', tag: 'diyvideos', video: false },
+        { image: require("../images/dance.png"), title: 'Hindi', tag: 'hindisongs', video: false },
+        { image: require("../images/dancing.png"), title: 'Punjabi', tag: 'punjabisong', video: false },
+        { image: require("../images/drum.png"), title: 'Indian', tag: 'indiansong', video: false },
+        { image: require("../images/lyrics.png"), title: 'Lyrical', tag: 'lyricalvideo', video: false },
+        { image: require("../images/buddha.png"), title: 'Bhajan', tag: 'bhajan', video: false },
+        { image: require("../images/love-song.png"), title: 'Love Songs', tag: 'whatsappstatusvideo', video: false },
+        { image: require("../images/love-bird.png"),  title: 'Romantic Songs', tag: 'romanticsong', video: false  } ,
+        { image: require("../images/sad.png"), title: 'Sad Songs', tag: 'sadsong', video: false },
+        { image: require("../images/creative.png"), title: 'Creative', tag: 'creativevideo', video: false },
+        { image: require("../images/comedy.png"), title: 'Comedy', tag: 'comedyvideos', video: false  },
+        { image: require("../images/recipe.png"), title: 'Recipes', tag: 'recipevideo', video: false },
+    ]
+}
+
