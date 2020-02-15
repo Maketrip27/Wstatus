@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MoPubBanner } from 'react-native-mopub';
+// import { MoPubBanner } from 'react-native-mopub';
 
 
 export default class AdMopub extends Component {

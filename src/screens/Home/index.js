@@ -17,8 +17,8 @@ export default class ListIconExample extends Component {
       data: [
         { path: "Images", name: "Whats App Image Status", image: require("../../images/wappimage.png") },
         { path: "Videos", name: "Whats App Video Status", image: require("../../images/wappvideo.png") },
-        { path: "Daily Status", name: "Daily Image Status", image: require("../../images/list.png") },
-        { path: "Daily Status", name: "Daily Video Status", image: require("../../images/status.png") },
+        { path: "DailyStatus", name: "Daily Image Status", image: require("../../images/list.png") },
+        { path: "DailyStatus", name: "Daily Video Status", image: require("../../images/status.png") },
       ]
     };
     this.drawer = null;

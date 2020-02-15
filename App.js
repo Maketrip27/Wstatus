@@ -6,8 +6,8 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Text, StatusBar,View} from 'react-native';
+import React, { Component } from 'react';
+import { Text, StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import NavigationStack from "./src/navigation/router";
 import configureStore from './src/store/store'
@@ -16,17 +16,17 @@ import CONFIG from './src/config/config';
 const { store } = configureStore();
 console.disableYellowBox = true;
 
-export default class App extends Component{
+export default class App extends Component {
   constructor() {
     super();
     StatusBar.setBackgroundColor(CONFIG.themeColor, true);
     StatusBar.setHidden(false, 'none');
   }
-  
+
   render() {
     return (
       <Provider store={store} >
-        <NavigationStack/>
+        <NavigationStack />
       </Provider>
     );
   }
