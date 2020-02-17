@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, AppState, Dimensions, BackHandler, Image, DrawerLayoutAndroid, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Feed } from '../../component/feed.js';
+import { FlatList, View, StyleSheet, AppState, Dimensions, BackHandler, Image, DrawerLayoutAndroid, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import Feed from '../../component/feed.js';
 import { Container, Content, Button, Icon, Card, Text } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
@@ -14,7 +14,6 @@ import InstatStatus from '../../config/instaStatus';
 import _ from 'lodash';
 import WithContainer from '../../component/Container';
 import { MENU, HEART, BACK_ARROW } from "../../config/icons";
-
 const { height, width } = Dimensions.get('window');
 
 export default class ImageListComponent extends Component {
@@ -116,15 +115,13 @@ export default class ImageListComponent extends Component {
           content={true}
         >
           {this.props.images.length > 0 ?
-            <OptimizedFlatList
+            <FlatList
               contentContainerStyle={styles.list}
               data={this.props.images}
               numColumns={3}
               keyExtractor={(item, index) => item.id}
               onEndReached={() => console.log("end reac")}
               onEndThreshold={1}
-              initialNumToRender={10}
-
               renderItem={({ item, index }) => {
                 return (<Feed key={index + "whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate} />)
               }} /> : <NoData message="No status available." />}
