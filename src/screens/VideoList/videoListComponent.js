@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, TouchableWithoutFeedback, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableWithoutFeedback, Image, FlatList } from 'react-native';
 import { VideoFeed } from '../../component/videoFeed.js';
 import { Container, Content, Card, Text } from 'native-base';
 import { containerStyle, } from '../../utils/helper.js';
@@ -85,9 +85,9 @@ export default class App extends Component {
           content={true}
         >
           {length > 0 ?
-            <OptimizedFlatList
+            <FlatList
               contentContainerStyle={styles.list}
-              numColumns={3}
+              numColumns={2}
               data={this.props.videos}
               keyExtractor={(item, index) => item.id}
               renderItem={({ item, index }) => {

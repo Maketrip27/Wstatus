@@ -19,7 +19,7 @@ const Feed = (props) => {
           cardBody
           key={props.id + "ci" + props.for_key}
           onPress={() => props.navigate("Priview", { isUrl: props.isUrl, shareUrl: props.image_url, url: getFilePath(props.image_url, props.isUrl) })}>
-          <FastImage key={props.id + "img" + props.for_key} source={{ uri: getFilePath(props.image_url, props.isUrl) }} style={{ height: 150, width: width / 3 - 5, flex: 1, justifyContent: 'flex-end', backgroundColor: '#e3f7f5' }}>
+          <FastImage key={props.id + "img" + props.for_key} source={{ uri: getFilePath(props.image_url, props.isUrl) }} style={{ height: 150, width: width / 2 - 5, flex: 1, justifyContent: 'flex-end', backgroundColor: '#e3f7f5' }}>
             <CardItem key={props.id + "CII" + props.for_key} style={{ backgroundColor: 'transparent', height: 30, backgroundColor: 'rgba(0,0,0,0.5)' }}>
               <Left key={props.id + "left" + props.for_key}>
                 <Button key={props.id + "btn" + props.for_key} transparent onPress={() => shareFile(props.image_url, props.isUrl)}>
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     marginRight: 1,
     marginBottom: 1,
     marginTop: 1,
-    minWidth: width / 3 - 5,
-    maxWidth: width / 3 - 5,
+    minWidth: width / 2 - 5,
+    maxWidth: width / 2 - 5,
     height: 150,
     maxHeight: 150
   }

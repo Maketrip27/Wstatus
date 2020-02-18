@@ -55,33 +55,16 @@ const NavigationStack = createStackNavigator({
   Splash: { screen: Splash },
   AppIntro: { screen: AppIntro },
   Images: {
-    screen: ImageList,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<Icon name='md-image' style={[{ color: tintColor }]} />
-      )
-    }
+    screen: ImageList
   },
   Videos: {
-    screen: VideoList,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<Icon name='md-videocam' style={[{ color: tintColor }]} />
-      )
-    }
+    screen: VideoList
   },
   DailyStatus: {
     screen: InstaPics,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (<Icon name='md-apps' style={[{ color: tintColor }]} />
-      )
-    }
   },
   Home: {
     screen: Home,
-    navigationOptions: {
-      cardStack: {
-        gesturesEnabled: false,
-      }
-    }
   },
   Priview: { screen: Priview },
   InstaPreviewList: { screen: InstaPreviewList },
@@ -96,18 +79,15 @@ const NavigationStack = createStackNavigator({
   {
     initialRouteName: 'Splash',
     headerMode: 'none',
-    // navigationOptions: {
-    //   headerVisible: false,
-    //   gesturesEnabled: false,
-    //   headerLeft: null,
-    //   gesturesDirection: 'inverted',
-    //   cardStack: {
-    //     gesturesEnabled: false,
-    //   }
-    // },
-    // cardStyle: {
-    //   backgroundColor: "#ffffff"
-    // }
+    navigationOptions: {
+      animationEnabled: false,
+      transitionConfig: () => ({
+        transitionSpec: {
+          duration: 0,
+          timing: 0,
+        },
+      })
+    }
   });
 
 // const navigator = createSwitchNavigator(

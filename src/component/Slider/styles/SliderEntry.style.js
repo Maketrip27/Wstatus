@@ -68,8 +68,8 @@ export default StyleSheet.create({
   },
   textContainer: {
     justifyContent: 'center',
-    paddingTop: 20 - entryBorderRadius,
-    paddingBottom: 20,
+    paddingTop: 10 - entryBorderRadius,
+    paddingBottom: 10,
     paddingHorizontal: 16,
     backgroundColor: 'white',
     borderBottomLeftRadius: entryBorderRadius,

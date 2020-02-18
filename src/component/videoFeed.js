@@ -22,40 +22,40 @@ export class VideoFeed extends Component {
     const { isUrl, video_url, code } = this.props;
     let filePath = getFilePath(video_url, isUrl);
     return (
-      <Card style={{marginTop:2,marginBottom:2}}>
-      <List style={styles.gird} key={this.props.id + "list"}>
-        <CardItem cardBody key={this.props.id + "ci"}>
-          <FastImage
-            key={this.props.id + "img"}
-            source={{ uri: filePath }}
-            style={styles.FastImage}
-          >
-            <Button
-              style={styles.centerButton}
-              key={this.props.id + "btn"} transparent
-              onPress={() => this.props.navigate("VideoPreview", { code: code, thumbnail: filePath, url: filePath, shareUrl: this.props.video_url, isUrl: isUrl })}
+      <Card style={{ marginTop: 2, marginBottom: 2 }}>
+        <List style={styles.gird} key={this.props.id + "list"}>
+          <CardItem cardBody key={this.props.id + "ci"}>
+            <FastImage
+              key={this.props.id + "img"}
+              source={{ uri: filePath }}
+              style={styles.FastImage}
             >
-              <Icon key={this.props.id + "icon"} active name="md-play" style={{ color: 'white', fontSize: 15 }} />
-            </Button>
-            {isUrl ? null :
-              <CardItem
-                key={this.props.id + "CII"}
-                style={styles.sharePanel}
+              <Button
+                style={styles.centerButton}
+                key={this.props.id + "btn"} transparent
+                onPress={() => this.props.navigate("VideoPreview", { code: code, thumbnail: filePath, url: filePath, shareUrl: this.props.video_url, isUrl: isUrl })}
               >
-                <Left key={this.props.id + "left"}>
-                  <Button key={this.props.id + "btn"} transparent onPress={() => shareFile(this.props.video_url, isUrl, "video/mp4")}>
-                    <Icon key={this.props.id + "icon"} active name="md-share-alt" style={{ color: 'white', fontSize: 18 }} />
-                  </Button>
-                </Left>
-                <Right key={this.props.id + "right"}>
-                  <Button key={this.props.id + "rbtn"} transparent onPress={() => downloadFiles(this.props.video_url, isUrl, ".mp4")}>
-                    <Icon key={this.props.id + "ricon"} active name="md-download" style={{ color: 'white', fontSize: 18 }} />
-                  </Button>
-                </Right>
-              </CardItem>}
-          </FastImage>
-        </CardItem>
-      </List>
+                <Icon key={this.props.id + "icon"} active name="md-play" style={{ color: 'white', fontSize: 15 }} />
+              </Button>
+              {isUrl ? null :
+                <CardItem
+                  key={this.props.id + "CII"}
+                  style={styles.sharePanel}
+                >
+                  <Left key={this.props.id + "left"}>
+                    <Button key={this.props.id + "btn"} transparent onPress={() => shareFile(this.props.video_url, isUrl, "video/mp4")}>
+                      <Icon key={this.props.id + "icon"} active name="md-share-alt" style={{ color: 'white', fontSize: 18 }} />
+                    </Button>
+                  </Left>
+                  <Right key={this.props.id + "right"}>
+                    <Button key={this.props.id + "rbtn"} transparent onPress={() => downloadFiles(this.props.video_url, isUrl, ".mp4")}>
+                      <Icon key={this.props.id + "ricon"} active name="md-download" style={{ color: 'white', fontSize: 18 }} />
+                    </Button>
+                  </Right>
+                </CardItem>}
+            </FastImage>
+          </CardItem>
+        </List>
       </Card>
     );
   }
@@ -91,25 +91,24 @@ const styles = StyleSheet.create({
     marginRight: 2,
     marginBottom: 2,
     marginTop: 2,
-    minWidth: width / 3 - 5,
-    maxWidth: width / 3 - 5,
+    minWidth: width / 2 - 5,
+    maxWidth: width / 2 - 5,
     height: 150,
     maxHeight: 150,
   },
   centerButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     backgroundColor: 'rgba(0,0,0,0.60)',
-    borderRadius: 20,
+    borderRadius: 25,
     zIndex: 5,
-    left: (width / 3) / 2 - 30
   },
   sharePanel: {
     backgroundColor: 'transparent',
     height: 30,
-    width: width / 3 - 5,
+    width: width / 2 - 5,
     backgroundColor: 'rgba(0,0,0,0.5)',
     alignContent: 'flex-end',
     justifyContent: 'center',
@@ -117,5 +116,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   },
-  FastImage: { height: 150, width: width / 3 - 5, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e3f7f5' }
+  FastImage: { height: 150, width: width / 2 - 5, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e3f7f5' }
 });

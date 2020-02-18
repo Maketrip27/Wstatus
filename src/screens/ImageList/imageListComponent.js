@@ -118,7 +118,7 @@ export default class ImageListComponent extends Component {
             <FlatList
               contentContainerStyle={styles.list}
               data={this.props.images}
-              numColumns={3}
+              numColumns={2}
               keyExtractor={(item, index) => item.id}
               onEndReached={() => console.log("end reac")}
               onEndThreshold={1}
