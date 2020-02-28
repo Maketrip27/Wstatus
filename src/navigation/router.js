@@ -52,7 +52,10 @@ import Home from "../screens/Home/index";
 // });
 
 const NavigationStack = createStackNavigator({
-  Splash: { screen: Splash },
+  // Splash: { screen: Splash },
+  Home: {
+    screen: Home,
+  },
   AppIntro: { screen: AppIntro },
   Images: {
     screen: ImageList
@@ -62,9 +65,6 @@ const NavigationStack = createStackNavigator({
   },
   DailyStatus: {
     screen: InstaPics,
-  },
-  Home: {
-    screen: Home,
   },
   Priview: { screen: Priview },
   InstaPreviewList: { screen: InstaPreviewList },
@@ -77,7 +77,6 @@ const NavigationStack = createStackNavigator({
   }
 },
   {
-    initialRouteName: 'Splash',
     headerMode: 'none',
     navigationOptions: {
       animationEnabled: false,
@@ -90,20 +89,21 @@ const NavigationStack = createStackNavigator({
     }
   });
 
-// const navigator = createSwitchNavigator(
-//   {
-//     NavigationStack,
-//   },
-//   {
-//     headerMode: 'none',
-//     initialRouteName: 'NavigationStack',
-//     navigationOptions: {
-//       headerVisible: true,
-//     },
-//     cardStyle: {
-//       backgroundColor: '#ffffff',
-//     },
-//   },
-// );
+const navigator = createSwitchNavigator(
+  {
+    Splash: { screen: Splash },
+    NavigationStack,
+  },
+  {
+    headerMode: 'none',
+    initialRouteName: 'Splash',
+    navigationOptions: {
+      headerVisible: true,
+    },
+    cardStyle: {
+      backgroundColor: '#ffffff',
+    },
+  },
+);
 
-export default createAppContainer(NavigationStack);
+export default createAppContainer(navigator);

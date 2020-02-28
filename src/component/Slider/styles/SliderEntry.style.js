@@ -20,7 +20,7 @@ const entryBorderRadius = 8;
 
 export default StyleSheet.create({
   slideInnerContainer: {
-    width: itemWidth,
+    width: itemWidth - 5,
     height: slideHeight,
     paddingHorizontal: itemHorizontalMargin,
     paddingBottom: 18 // needed for shadow
@@ -68,7 +68,7 @@ export default StyleSheet.create({
   },
   textContainer: {
     justifyContent: 'center',
-    paddingTop: 10 - entryBorderRadius,
+    paddingTop: 20 - entryBorderRadius,
     paddingBottom: 10,
     paddingHorizontal: 16,
     backgroundColor: 'white',
@@ -76,7 +76,8 @@ export default StyleSheet.create({
     borderBottomRightRadius: entryBorderRadius
   },
   textContainerEven: {
-    backgroundColor: colors.black
+    backgroundColor: colors.black,
+    opacity: 0.8
   },
   title: {
     color: colors.black,

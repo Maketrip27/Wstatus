@@ -26,7 +26,7 @@ export default class Home extends Component {
         renderNavigationView={() => <SideMenu />}>
         <WithContainer
           title={"Share Status"}
-          leftClick={() => this.drawer && this.drawer.openDrawer()}
+          leftClick={() => this.drawer.openDrawer()}
           onRightClick={() => navigation.navigate("FavData")}
           leftIcon={MENU}
           contentStyle={{ padding: 0, margin: 0, backgroundColor: "white" }}

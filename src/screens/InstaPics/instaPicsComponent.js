@@ -10,11 +10,14 @@ import {
 const { height, width } = Dimensions.get('window');
 // import Ad from '../../config/ad';
 import Config from '../../config/config';
-
+import WithContainer from '../../component/Container';
+import { BACK_ARROW } from "../../config/icons";
 import { NavigationActions } from "react-navigation";
 import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 import InstaStatus from '../../config/instaStatus';
+import CarouselView from "../../component/Carousel";
+import SliderEntry from "../../component/Slider";
 
 export default class InstaPicsComponent extends Component {
   _navigate = (name, params) => {
@@ -25,61 +28,46 @@ export default class InstaPicsComponent extends Component {
     this.props.navigation.dispatch(navigate);
   }
 
-  imageStatus = () => {
+  imageStatus = (data) => {
+    const { navigation } = this.props
     return (
-      <View>
-        <Card >
-          <CardItem header bordered style={{ paddingLeft: 0, height: 18 }}>
-            <Icon style={{ color: Config.themeColor, paddingLeft: 5 }} name="md-images" />
-            <Text style={{ color: Config.themeColor, fontSize: 18 }}>Image Status</Text>
-          </CardItem>
-          <View style={styles.container}>
-            {InstaStatus.imageStatus.map((item, index) => {
-              return (
-                <TouchableWithoutFeedback key ={"img-list"+index} onPress={() => this._navigate('InstaPreviewList', { title: item.title, tag: item.tag, video: false })}>
-                  <Card style={styles.menuBox}>
-                    <Image style={styles.icon} source={item.image} />
-                    <Text style={styles.info}>{item.title}</Text>
-                  </Card>
-                </TouchableWithoutFeedback>)
-            })}
-          </View>
-        </Card>
-        <Card style={{ borderRadius: 5 }}>
-          <CardItem header bordered style={{ paddingLeft: 0, height: 18 }}>
-            <Icon style={{ color: Config.themeColor, paddingLeft: 5 }} name="md-videocam" />
-            <Text style={{ color: Config.themeColor, fontSize: 18 }}>Video Status</Text>
-          </CardItem>
-          <View style={styles.container}>
-          {InstaStatus.videoStatus.map((item, index) => {
-              return (
-                <TouchableWithoutFeedback key ={"vid-list"+index} onPress={() => this._navigate('StatusVideoList', { title: item.title, tag: item.tag, video: false })}>
-                  <Card style={styles.menuBox}>
-                    <Image style={styles.icon} source={item.image} />
-                    <Text style={styles.info}>{item.title}</Text>
-                  </Card>
-                </TouchableWithoutFeedback>)
-            })}
-          </View>
-        </Card>
-      </View>
+      < View style={styles.container} >
+        {
+          data.map((item, index) => {
+            return (
+              <SliderEntry
+                data={{ ...item, index }}
+                index={index}
+                onClickItem={(item) => navigation && navigation.push(item.path, { ...item })}
+              />
+            )
+          })
+        }
+      </View >
     )
   }
   render() {
+    // console.log(JSON.stringify(this.props.navigation.state.params))
+    const { navigation } = this.props;
+    const { data, title } = navigation.state.params
     return (
-      <Container>
-        <Content>
-          {/* <AdMopub unitId={Ad.dailyStatus}/> */}
-          {this.imageStatus()}
-          <AdMopub unitId={Ad.dailyStatus} />
-        </Content>
-      </Container>
+      <WithContainer
+        title={title || "Share Status"}
+        leftClick={() => navigation && navigation.goBack()}
+        leftIcon={BACK_ARROW}
+        contentStyle={{ flex: 1, padding: 0, margin: 0, backgroundColor: "white" }}
+        content={true}
+      >
+        {this.imageStatus(data)}
+        <AdMopub unitId={Ad.dailyStatus} />
+      </WithContainer >
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1

@@ -24,7 +24,7 @@ module.exports = {
         { path: "StatusVideoList", image: require("../images/lyrics.png"), title: 'Lyrical', tag: 'lyricalvideo', video: false },
         { path: "StatusVideoList", image: require("../images/buddha.png"), title: 'Bhajan', tag: 'bhajan', video: false },
         { path: "StatusVideoList", image: require("../images/love-song.png"), title: 'Love Songs', tag: 'whatsappstatusvideo', video: false },
-        { path: "StatusVideoList", image: require("../images/love-bird.png"), title: 'Romantic Songs', tag: 'romanticsong', video: false },
+        { path: "StatusVideoList", image: require("../images/love-bird.png"), title: 'Romantic', tag: 'romanticsong', video: false },
         { path: "StatusVideoList", image: require("../images/sad.png"), title: 'Sad Songs', tag: 'sadsong', video: false },
         { path: "StatusVideoList", image: require("../images/creative.png"), title: 'Creative', tag: 'creativevideo', video: false },
         { path: "StatusVideoList", image: require("../images/comedy.png"), title: 'Comedy', tag: 'comedyvideos', video: false },
