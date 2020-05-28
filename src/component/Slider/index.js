@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { ParallaxImage } from 'react-native-snap-carousel';
 import styles from './styles/SliderEntry.style';
+import { Card } from 'react-native-ui-lib';
+
 export default class SliderEntry extends Component {
 
   static propTypes = {
@@ -58,8 +60,8 @@ export default class SliderEntry extends Component {
     ) : false;
 
     return (
-      <TouchableOpacity
-        activeOpacity={1}
+      <Card
+
         style={styles.slideInnerContainer}
         onPress={() => onClickItem && onClickItem(data)}
       >
@@ -71,7 +73,8 @@ export default class SliderEntry extends Component {
         <View style={[styles.textContainer, true ? styles.textContainerEven : {}]}>
           {uppercaseTitle}
         </View>
-      </TouchableOpacity>
+        {/* </TouchableOpacity> */}
+      </Card>
     );
   }
 }

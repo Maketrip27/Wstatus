@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Icon, Text, Card, CardItem, Right, Left } from 'native-base';
+import { Icon, Text, CardItem, Right, Left } from 'native-base';
 import { ScrollView } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
 import SliderEntry from "./Slider";
-import styles1, { colors } from './Slider/styles/index.style';
-import { sliderWidth, itemWidth } from './Slider/styles/SliderEntry.style';
 import _ from 'lodash';
+import { Card } from 'react-native-ui-lib';
 
 export default class CarouselView extends Component {
   _renderItem = ({ item, index }, parallaxProps) => {
@@ -23,7 +21,16 @@ export default class CarouselView extends Component {
   render() {
     const { navigation, data, title } = this.props;
     return (
-      <Card style={{ width: "100%", padding: 0 }}>
+      <Card
+        // key={image.uri}
+        // onPress={_.noop}
+        borderRadius={10}
+        enableShadow
+        marginB-page
+        useNative
+        activeScale={0.98}
+        activeOpacity={1}
+      >
         <CardItem
           footer
           bordered

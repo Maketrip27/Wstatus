@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, RefreshControl, StatusBar, FlatList } from 'react-native';
-import Feed from '../../component/feed.js';
+import { RefreshControl, StatusBar } from 'react-native';
 import { Container, Content, Button, Icon, Header, Left, Body, Right, Title } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
 import { containerStyle } from '../../utils/helper.js';
 // import Ad from '../../config/ad';
-import { OptimizedFlatList } from 'react-native-optimized-flatlist'
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
-import AdMopub from '../../component/AdMopub';
-import Ad from '../../config/mopubAds';
-const { height, width } = Dimensions.get('window');
+import PintestView from "../../component/pintrestView";
 
 export default class InstaPreview extends Component {
   constructor(props) {
@@ -39,17 +35,12 @@ export default class InstaPreview extends Component {
     }).then((response) => response.json())
       .then((responseData) => {
         let onlyImage = responseData.graphql.hashtag.edge_hashtag_to_media.edges;
-        onlyImage = onlyImage.filter(node => node.node.is_video === false)
+        onlyImage = onlyImage.filter(node => node.node.is_video === false).map(({ node: { display_url } }) => display_url)
         this.setState({ images: onlyImage, loading: false, refreshing: false })
       })
       .catch(() => {
         this.setState({ loading: false, refreshing: false })
       });
-  }
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
   }
 
   _navigate = (name, params) => {
@@ -59,6 +50,7 @@ export default class InstaPreview extends Component {
     });
     this.props.navigation.dispatch(navigate);
   }
+
   _onRefresh() {
     this.setState({ refreshing: true });
     this.getMediaFromTag()
@@ -93,8 +85,8 @@ export default class InstaPreview extends Component {
               />
             }
             contentContainerStyle={containerStyle(this.state.images)}>
-            <AdMopub unitId={Ad.instaPics} />
-            {this.state.images.length > 0 ?
+            {/* <AdMopub unitId={Ad.instaPics} /> */}
+            {/* {this.state.images.length > 0 ?
               <FlatList
                 contentContainerStyle={styles.list}
                 data={this.state.images}
@@ -103,46 +95,15 @@ export default class InstaPreview extends Component {
                 renderItem={({ item, index }) => {
                   return (<Feed for_key="Insta" image_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true} />)
                 }} /> :
-              <NoData message={"No " + title + " status available."} whatsApp={true} />}
+              <NoData message={"No " + title + " status available."} whatsApp={true} />} */}
             {/* <AdMopub unitId={Ad.instaPics}/> */}
+            {this.state.images.length > 0 ? <PintestView
+              data={this.state.images}
+              isUrl={true}
+              navigate={this._navigate}
+            /> : <NoData message={"No " + title + " status available."} whatsApp={true} />}
           </Content>}
       </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  list: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    flex: 1,
-    margin: 2
-  },
-  floatButton: {
-    width: 120,
-    height: 30,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(1, 119, 106,0.8)',
-    position: 'absolute',
-    bottom: 10,
-    right: (width / 2) - 60,
-    borderRadius: 30,
-    zIndex: 1
-  }
-});
