@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import {
-  Platform, 
+import { 
   StyleSheet, 
-  Text, 
   View,
   PermissionsAndroid,
-  Image,
-  AsyncStorage
+  Image
 } from 'react-native';
-import {Button} from 'native-base';
 import { NavigationActions } from "react-navigation";
-
-import {getThumbnailfiles} from "../../utils/helper"
 import LottieView from 'lottie-react-native';
 
 export default class SplashComponent extends Component {
@@ -21,17 +15,17 @@ export default class SplashComponent extends Component {
       appIntro: true
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     // getThumbnailfiles()
     this.requestCameraPermission()
-    AsyncStorage.getItem("introduction", (err, result) => {
-      if (result !=null && result === 'true'){
-         this.setState({appIntro: true});
-       }else{
-        AsyncStorage.setItem("introduction", 'true');
-        this.setState({appIntro: false});
-       }
-    });
+    // AsyncStorage.getItem("introduction", (err, result) => {
+    //   if (result !=null && result === 'true'){
+    //      this.setState({appIntro: true});
+    //    }else{
+    //     AsyncStorage.setItem("introduction", 'true');
+    //     this.setState({appIntro: false});
+    //    }
+    // });
   }
 
   async  requestCameraPermission() {
@@ -45,12 +39,8 @@ export default class SplashComponent extends Component {
         }else{
           this.props.fetchWhatsAppFiles()
           setTimeout(()=>{
-            if (this.state.appIntro === true){
-              this._navigate('Home')
-            }else{
-              this._navigate('AppIntro')
-            }
-          },3000)
+            this._navigate('Home')
+          },1000)
         }
       })
     } catch (err) {

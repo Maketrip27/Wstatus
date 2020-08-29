@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   StatusBar
 } from 'react-native';
-
-import { downloadFiles, shareFile,getRandomAdUnit } from '../../utils/helper.js';
+import { downloadFiles, shareFile } from '../../utils/helper.js';
 import {Icon} from 'native-base';
-// import Ad from '../../config/ad';
 import PhotoView from 'react-native-photo-view';
-import AdMopub from '../../component/AdMopub';
 import Ad from '../../config/mopubAds';
 const { width, height} = Dimensions.get('window');
+
+// import Ad from '../../config/ad';
+// import AdMopub from '../../component/AdMopub';
 
 export default class PreviewImageListComponent extends Component {
   constructor(props){
@@ -22,8 +22,7 @@ export default class PreviewImageListComponent extends Component {
   componentWillUnmount(){
     StatusBar.setHidden(false, 'none');
   }
-  componentWillReceiveProps(){
-  }
+
   componentDidMount() {
     StatusBar.setHidden(true, 'none');
   }
@@ -33,36 +32,36 @@ export default class PreviewImageListComponent extends Component {
     const {url, shareUrl, isUrl} = this.props.navigation.state.params;
     ad = isUrl ? Ad.quotePreview : Ad.previewAd
     return(
-            <View style={{flex:1,backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)',alignItems:'center',justifyContent:'center'}}>
-              <TouchableOpacity
-                onPress={() => {
-                  StatusBar.setHidden(false, 'none');
-                  this.props.navigation.goBack();
-                }}
-                style={[styles.largeButtonContainer, { left: 12 }]}
-              >
-                <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                onPress={() => {shareFile(shareUrl, isUrl)}}
-                style={[styles.largeButtonContainer, { right: 64 }]}
-              >
-                <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                onPress={() => {downloadFiles(shareUrl, isUrl)}}
-                style={[styles.largeButtonContainer, { right: 12 }]}
-              >
-                <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
-              </TouchableOpacity>
-              <PhotoView
-                source={{uri: url}}
-                androidScaleType="center"
-                style={{width: width, height: height}} />
-               <View style={styles.bottomView}>
-                 <AdMopub unitId={Ad.imagePreview}/>
-              </View>
-          </View>
+        <View style={{flex:1,backgroundColor: 'transparent',backgroundColor: 'rgba(0,0,0,0.90)',alignItems:'center',justifyContent:'center'}}>
+          <TouchableOpacity
+            onPress={() => {
+              StatusBar.setHidden(false, 'none');
+              this.props.navigation.goBack();
+            }}
+            style={[styles.largeButtonContainer, { left: 12 }]}
+          >
+            <Icon active name="md-close" style = {{color: 'white', fontSize: 23}}/>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => {shareFile(shareUrl, isUrl)}}
+            style={[styles.largeButtonContainer, { right: 64 }]}
+          >
+            <Icon active name="md-share-alt" style = {{color: 'white', fontSize: 23}}/>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => {downloadFiles(shareUrl, isUrl)}}
+            style={[styles.largeButtonContainer, { right: 12 }]}
+          >
+            <Icon active name="md-download" style = {{color: 'white', fontSize: 23}}/>
+          </TouchableOpacity>
+          <PhotoView
+            source={{uri: url}}
+            androidScaleType="center"
+            style={{width: width, height: height}} />
+            {/* <View style={styles.bottomView}>
+              <AdMopub unitId={Ad.imagePreview}/>
+          </View> */}
+      </View>
     )
   }
 }

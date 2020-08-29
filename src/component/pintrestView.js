@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { downloadFiles, shareFile, getFilePath } from '../utils/helper.js';
 import FastImage from 'react-native-fast-image'
 import { Button, Icon, } from 'native-base';
+import Loading from './loading';
 
 
 Spacings.loadSpacings({
@@ -44,10 +45,9 @@ class Pinterest extends Component {
 
   loadImages(imageList, isUrl) {
     const images = {};
-    _.map(imageList, (image, index) => {
+    _.forEach(imageList, (image, index) => {
       Image.getSize(getFilePath(image, isUrl),
         (width, height) => {
-          console.log(width)
           images[index] = {
             uri: getFilePath(image, isUrl),
             width,
@@ -57,21 +57,15 @@ class Pinterest extends Component {
             filePath: image,
 
           };
+          if ([5, 10, 15, 20, 25].includes(index)) {
+            this.setState({ images: _.values(images) });
+          }
 
           if (_.size(images) === imageList.length) {
             this.setState({ images: _.values(images) });
           }
         },
-        () => {
-          images[index] = {
-            uri: getFilePath(image, isUrl),
-            width: COLUMN_SIZE,
-            height: COLUMN_SIZE,
-            aspectRatio: 1,
-            filePath: image,
-            isUrl
-          };
-        });
+      );
     });
   }
 
@@ -126,9 +120,7 @@ class Pinterest extends Component {
     const { images } = this.state;
     if (!images) {
       return (
-        <View>
-          <Text>Loading</Text>
-        </View>
+        <Loading />
       );
     }
 

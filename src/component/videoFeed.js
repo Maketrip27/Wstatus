@@ -16,8 +16,6 @@ export class VideoFeed extends Component {
     this.state = { thumbnail: undefined }
     this.thumbnail = "null";
   }
-
-  componentDidMount() { }
   render() {
     const { isUrl, video_url, code } = this.props;
     let filePath = getFilePath(video_url, isUrl);

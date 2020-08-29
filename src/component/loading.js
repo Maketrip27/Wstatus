@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Content, 
+  Content,
   Spinner,
   Text
 } from 'native-base';
@@ -10,17 +10,17 @@ import LottieView from 'lottie-react-native';
 export default class Loading extends Component {
   render() {
     return (
-        <Content contentContainerStyle={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
-          <LottieView
-            source={require('../animation/loading_dots-color.json')}
-            style={{}}
-            autoPlay
-            loop
-          />
-          <Text style={{top:30, color: CONFIG.themeColor}}>
-            {this.props.message}
-          </Text>
-        </Content>
+      <Content contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <LottieView
+          source={require('../animation/loading_dots-color.json')}
+          style={{}}
+          autoPlay
+          loop
+        />
+        <Text style={{ top: 30, color: CONFIG.themeColor }}>
+          {this.props.message}
+        </Text>
+      </Content>
     );
   }
 }

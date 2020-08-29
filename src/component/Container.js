@@ -6,6 +6,7 @@ import Loader from './loading';
 import theme from '../config/config';
 
 const WithContainer = ({
+  isHeader,
   title,
   leftClick,
   leftIcon,
@@ -19,7 +20,8 @@ const WithContainer = ({
   children,
   refresh,
   content,
-  outSideContent
+  outSideContent,
+  hideHeader
 }) => {
   let child = null;
   if (isLoading) child = <Loader />;
@@ -55,13 +57,14 @@ const WithContainer = ({
 
   return (
     <Container style={[{ backgroundColor: theme.backgroundColor }]}>
-      <AppHeader
+      {!hideHeader &&<AppHeader
         title={title}
         onLeftClick={leftClick}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
         onRightClick={onRightClick}
-      />
+        isHeader={isHeader}
+      />}
       {child}
       {outSideContent && outSideContent}
     </Container>

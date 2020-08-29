@@ -41,6 +41,8 @@ export default StyleSheet.create({
     flex: 1,
     marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
     backgroundColor: 'white',
+    borderRadius: entryBorderRadius,
+    width: 120,
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius
   },
@@ -70,23 +72,24 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 20 - entryBorderRadius,
     paddingBottom: 10,
-    paddingHorizontal: 16,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: entryBorderRadius,
-    borderBottomRightRadius: entryBorderRadius
+    paddingHorizontal: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: entryBorderRadius,
   },
   textContainerEven: {
-    backgroundColor: colors.black,
+    backgroundColor: 'transparent',
     opacity: 0.8
   },
   title: {
     color: colors.black,
-    fontSize: 13,
-    fontWeight: 'bold',
-    letterSpacing: 0.5
+    fontSize: 14,
+    fontWeight: '200',
+    letterSpacing: 0.5,
+    color: 'white',
   },
   titleEven: {
-    color: 'white'
+    color: 'white',
+    fontWeight: 'bold'
   },
   subtitle: {
     marginTop: 6,

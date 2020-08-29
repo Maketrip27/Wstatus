@@ -9,11 +9,12 @@ import {
 
 import { downloadFiles, shareFile } from '../../utils/helper.js';
 import { Icon } from 'native-base';
-// import Ad from '../../config/ad';
 import VideoPlayer from 'react-native-video-player';
 import LottieView from 'lottie-react-native';
-import AdMopub from '../../component/AdMopub';
-import Ad from '../../config/mopubAds';
+// import AdMopub from '../../component/AdMopub';
+// import Ad from '../../config/mopubAds';
+// import Ad from '../../config/ad';
+
 const { width, height } = Dimensions.get('window');
 
 export default class VideoImageListComponent extends Component {
@@ -25,12 +26,15 @@ export default class VideoImageListComponent extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let { code, isUrl } = this.props.navigation.state.params;
     if (isUrl) {
       this.getMediaFromTag(code)
       this.setState({ loading: true })
     }
+    setTimeout(() => {
+      StatusBar.setHidden(true, 'none');
+    }, 1000)
   }
   componentWillUnmount() {
     StatusBar.setHidden(false, 'none');
@@ -53,11 +57,7 @@ export default class VideoImageListComponent extends Component {
         this.setState({ loading: false })
       });
   }
-  componentDidMount() {
-    setTimeout(() => {
-      StatusBar.setHidden(true, 'none');
-    }, 1000)
-  }
+
   render() {
     const { url, thumbnail, shareUrl, isUrl } = this.props.navigation.state.params;
     const videoUrl = isUrl ? this.state.video_url : url;
@@ -111,9 +111,9 @@ export default class VideoImageListComponent extends Component {
               console.log('VideoPlayer onLoad, ', event);
             }}
           />}
-        <View style={styles.bottomView}>
+        {/* <View style={styles.bottomView}>
           <AdMopub unitId={Ad.videoPreview} />
-        </View>
+        </View> */}
       </View>
     )
   }

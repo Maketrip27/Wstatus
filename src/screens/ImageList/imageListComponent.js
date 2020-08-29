@@ -4,12 +4,12 @@ import Feed from '../../component/feed.js';
 import { Card, Text } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
-import AdMopub from '../../component/AdMopub';
-import Ad from '../../config/mopubAds';
+// import AdMopub from '../../component/AdMopub';
+// import Ad from '../../config/mopubAds';
 import _ from 'lodash';
 import WithContainer from '../../component/Container';
 import { BACK_ARROW } from "../../config/icons";
-import PintestView from "../../component/pintrestView";
+// import PintestView from "../../component/pintrestView";
 
 const { width } = Dimensions.get('window');
 
@@ -45,28 +45,26 @@ export default class ImageListComponent extends Component {
     return (
       <React.Fragment>
         <WithContainer
-          title={"Whats App Image Status"}
+          title={"Image Status"}
           leftClick={() => navigation && navigation.goBack()}
           leftIcon={BACK_ARROW}
           contentStyle={{ padding: 0, margin: 0, backgroundColor: "white" }}
           content={true}
         >
-          {/* {this.props.images.length > 0 ?
+          {this.props.images.length > 0 ?
             <FlatList
-              contentContainerStyle={styles.list}
               data={this.props.images}
               numColumns={2}
-              keyExtractor={(item) => item.id}
-              onEndReached={() => console.log("end reac")}
+              keyExtractor={(item) => item}
               onEndThreshold={1}
               renderItem={({ item, index }) => {
                 return (<Feed key={index + "whatsapp"} for_key="Whats" image_url={item} id={index} navigate={this._navigate} />)
-              }} /> : <NoData message="No status available." />} */}
-          {images.length > 0 ? <PintestView
+              }} /> : <NoData message="No status available." />}
+          {/* {images.length > 0 ? <PintestView
             data={images}
             isUrl={false}
             navigate={this._navigate}
-          /> : <NoData message="No status available." />}
+          /> : <NoData message="No status available." />} */}
           {/* <AdMopub unitId={Ad.imageList} /> */}
         </WithContainer>
       </React.Fragment>
@@ -75,38 +73,11 @@ export default class ImageListComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,
     margin: 1
-  },
-  floatButton: {
-    width: 120,
-    height: 30,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(1, 119, 106,0.8)',
-    position: 'absolute',
-    bottom: 10,
-    right: (width / 2) - 60,
-    borderRadius: 30,
-    zIndex: 1
   },
   menuBox: {
     width: 70,

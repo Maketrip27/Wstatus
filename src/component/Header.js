@@ -5,8 +5,8 @@ import {
 import Ripple from 'react-native-material-ripple';
 import theme from '../config/config';
 
-const AppHeader = ({ title, onLeftClick, leftIcon, rightIcon, onRightClick }) => (
-  <Header androidStatusBarColor={theme.themeColor} style={{ backgroundColor: theme.themeColor, elevation: 5, height: 50 }}>
+const AppHeader = ({ isHeader = true, title, onLeftClick, leftIcon, rightIcon, onRightClick }) => {
+  return isHeader && (<Header androidStatusBarColor={theme.themeColor} style={{ backgroundColor: theme.themeColor, elevation: 5, height: 50 }}>
     {onLeftClick ? (
       <Left style={{ flex: 1 }}>
         <Ripple onPress={onLeftClick} rippleCentered>
@@ -37,7 +37,7 @@ const AppHeader = ({ title, onLeftClick, leftIcon, rightIcon, onRightClick }) =>
         </Ripple>
       </Right>
     ) : <Right style={{ flex: 1 }} />}
-  </Header>
-);
+  </Header>)
+}
 
 export default AppHeader;

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { RefreshControl, StatusBar } from 'react-native';
+import { RefreshControl, StatusBar, FlatList } from 'react-native';
 import { Container, Content, Button, Icon, Header, Left, Body, Right, Title } from 'native-base';
 import { NavigationActions } from "react-navigation";
 import NoData from '../../component/noData';
 import { containerStyle } from '../../utils/helper.js';
-// import Ad from '../../config/ad';
+import Feed from '../../component/feed.js';
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
-import PintestView from "../../component/pintrestView";
+
+// import Ad from '../../config/ad';
+// import PintestView from "../../component/pintrestView";
+// const { height, width } = Dimensions.get('window');
 
 export default class InstaPreview extends Component {
   constructor(props) {
@@ -20,7 +23,7 @@ export default class InstaPreview extends Component {
     StatusBar.setBackgroundColor(CONFIG.themeColor, true);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getMediaFromTag()
   }
 
@@ -86,22 +89,21 @@ export default class InstaPreview extends Component {
             }
             contentContainerStyle={containerStyle(this.state.images)}>
             {/* <AdMopub unitId={Ad.instaPics} /> */}
-            {/* {this.state.images.length > 0 ?
+            {this.state.images.length > 0 ?
               <FlatList
-                contentContainerStyle={styles.list}
                 data={this.state.images}
                 numColumns={2}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item) => item}
                 renderItem={({ item, index }) => {
-                  return (<Feed for_key="Insta" image_url={item.node.display_url} id={index} navigate={this._navigate} isUrl={true} />)
+                  return (<Feed for_key="Insta" image_url={item} id={index} navigate={this._navigate} isUrl={true} />)
                 }} /> :
-              <NoData message={"No " + title + " status available."} whatsApp={true} />} */}
+              <NoData message={"No " + title + " status available."} whatsApp={true} />}
             {/* <AdMopub unitId={Ad.instaPics}/> */}
-            {this.state.images.length > 0 ? <PintestView
+            {/* {this.state.images.length > 0 ? <PintestView
               data={this.state.images}
               isUrl={true}
               navigate={this._navigate}
-            /> : <NoData message={"No " + title + " status available."} whatsApp={true} />}
+            /> : <NoData message={"No " + title + " status available."} whatsApp={true} />} */}
           </Content>}
       </Container>
     );

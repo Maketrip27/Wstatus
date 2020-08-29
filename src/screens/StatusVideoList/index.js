@@ -6,9 +6,13 @@ import NoData from '../../component/noData';
 import { containerStyle } from '../../utils/helper.js';
 import Loading from '../../component/loading.js';
 import CONFIG from '../../config/config.js';
-import AdMopub from '../../component/AdMopub';
-import Ad from '../../config/mopubAds';
-import PintrestVideo from "../../component/pintrestVideo";
+import {VideoFeed} from '../../component/videoFeed.js';
+import {OptimizedFlatList} from 'react-native-optimized-flatlist'
+
+// import AdMopub from '../../component/AdMopub';
+// import Ad from '../../config/mopubAds';
+// import PintrestVideo from "../../component/pintrestVideo";
+
 
 export default class StatusVideoList extends Component {
   constructor(props) {
@@ -21,7 +25,7 @@ export default class StatusVideoList extends Component {
     StatusBar.setBackgroundColor(CONFIG.themeColor, true);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getMediaFromTag()
   }
 
@@ -79,7 +83,8 @@ export default class StatusVideoList extends Component {
           </Body>
           <Right />
         </Header>
-        {(this.state.loading) ? <Loading message={"Please wait fetching " + title + " status."} /> :
+        {(this.state.loading) ? 
+        <Loading message={"Please wait fetching " + title + " status."} /> :
           <Content
             refreshControl={
               <RefreshControl
@@ -87,10 +92,34 @@ export default class StatusVideoList extends Component {
                 onRefresh={this._onRefresh.bind(this)}
               />
             }
-            contentContainerStyle={containerStyle(this.state.images)}>
+            contentContainerStyle={containerStyle(this.state.images)}
+          >
             {/* <AdMopub unitId={Ad.instaVideo} /> */}
             {images.length > 0 ?
-              <PintrestVideo data={images} isUrl={true} navigate={this._navigate} /> : <NoData message="No video status available." />}
+            <OptimizedFlatList
+                numColumns={2}
+                data={this.state.images}
+                keyExtractor={(item, index) => item.code}
+                renderItem={({item, index}) => {
+                  return (
+                    <VideoFeed 
+                      code={item.code} 
+                      for_key="InstaVideo" 
+                      video_url={item.image} 
+                      disp_url={item.image} 
+                      id={index} 
+                      navigate={this._navigate} 
+                      isUrl={true}
+                    />)
+                }}
+            /> :
+            <NoData message={"No "+ title + " status available."} whatsApp={true}/>}
+            {/* {images.length > 0 ?
+              <PintrestVideo 
+                data={images} 
+                isUrl={true} 
+                navigate={this._navigate} 
+              /> : <NoData message="No video status available." />} */}
           </Content>}
       </Container>
     );

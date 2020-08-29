@@ -1,70 +1,81 @@
 import React, { Component } from 'react';
-import { Icon, Text, CardItem, Right, Left } from 'native-base';
-import { ScrollView } from 'react-native';
+import { Icon, Text } from 'native-base';
+import { ScrollView, TouchableOpacity,  } from 'react-native';
 import SliderEntry from "./Slider";
 import _ from 'lodash';
+import { View } from 'react-native-ui-lib';
 import { Card } from 'react-native-ui-lib';
+import { NavigationActions } from "react-navigation";
+
 
 export default class CarouselView extends Component {
+  _navigate = (name, params) => {
+    const navigate = NavigationActions.navigate({
+      routeName: name,
+      params: params
+    });
+    this.props.navigation.dispatch(navigate);
+  }
   _renderItem = ({ item, index }, parallaxProps) => {
     const { navigation } = this.props;
     return (
       <SliderEntry
+        key={"carouse" + index}
         data={item}
+        cols={3}
         even={(index + 1) % 2 === 0}
-        // parallax={true}
         parallaxProps={parallaxProps}
-        onClickItem={(item) => navigation && navigation.push(item.path, { ...item })}
+        onClickItem={(item) => this._navigate(item.path, { ...item })}
       />
     );
   }
   render() {
-    const { navigation, data, title } = this.props;
+    const { navigation, data, dataKey,  title } = this.props;
     return (
-      <Card
-        // key={image.uri}
-        // onPress={_.noop}
-        borderRadius={10}
-        enableShadow
-        marginB-page
-        useNative
-        activeScale={0.98}
-        activeOpacity={1}
+      <View
+        style={{ width: "100%", padding: 0 }}
       >
-        <CardItem
-          footer
-          bordered
+      <Card
+        onPress={null}
+        // enableShadow
+        // marginB-page
+        // useNative
+        // activeScale={0.98}
+        // activeOpacity={1}
+        borderRadius={5}
+        containerStyle={{ margin: 5, backgroundColor: 'white'}}
+      >
+        <View
+          style={{ 
+            padding: 5, 
+            flex: 1, 
+            justifyContent: 'space-between', 
+            flexDirection: 'row',
+            backgroundColor: '#f5f5f5'
+          }}
         >
-          <Text style={{ color: '#01776a', fontWeight: 'bold' }}>{title}</Text>
-          <Left />
-          <Right >
-            <Icon
-              name="arrow-forward"
-              style={{ color: "#01776a" }}
-              onPress={() => navigation && navigation.push("DailyStatus", { data, title })}
-            />
-          </Right>
-        </CardItem>
-        <ScrollView style={{ height: 150, padding: 5 }} horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Text 
+            style={{ color: 'black', fontWeight: '600' }}
+            onPress={() => navigation && navigation.push("DailyStatus", { data: dataKey, title })}
+          >
+            {title}
+          </Text>
+          <Icon
+            name="arrow-forward"
+            style={{ color: "black",fontSize: 20, fontWeight:'bold' }}
+            fontSize={20}
+            onPress={() => navigation && navigation.push("DailyStatus", { data: dataKey, title })}
+          />
+        </View>
+        <ScrollView 
+          style={{ height: 'auto', padding: 5,  }} 
+          horizontal={true} 
+          showsHorizontalScrollIndicator={false}
+        >
           {_.shuffle(data).map((item, index) => this._renderItem({ item, index }))}
         </ScrollView>
-        {/* <Carousel
-          ref={(c) => { this._carousel = c; }}
-          data={data}
-          renderItem={this._renderItem}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          hasParallaxImages={true}
-          firstItem={1}
-          inactiveSlideScale={0.94}
-          inactiveSlideOpacity={0.7}
-          containerCustomStyle={styles1.slider}
-          contentContainerCustomStyle={styles1.sliderContentContainer}
-          autoplayDelay={500}
-          autoplayInterval={3000}
-          onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
-        /> */}
-      </Card >
+        </Card>
+      </View >
 
     );
   }
